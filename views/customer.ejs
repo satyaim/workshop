@@ -1,0 +1,63 @@
+  <!DOCTYPE html>
+  <!-- ABOUT -->
+  <html>
+    <head>
+      <link rel="manifest" href="manifest.json">
+      <link rel="icon" href="" type="image/x-icon">    
+      <link rel="shortcut icon" href="" type="image/x-icon">
+      <meta name="description" content="Bits Workshop Order System"/>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="customer-style.css"/>
+      <meta name="theme-color" content="cyan">
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <script type="text/javascript" src="min.js"></script>
+      <title>Connect</title>
+    </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="jquery214.js"></script>
+      <script type="text/javascript" src="materialize.min.js"></script>
+      <script type="text/javascript" src="customer-action.js"></script>
+      <!-- Dropdown Structure -->
+      <ul id="dropdown1" class="dropdown-content grey lighten-2">
+        <li><a href="../auth/logout" class="grey-text text-darken-4">Logout</a></li>
+      </ul>
+      <nav class="grey darken-3">
+        <div class="nav-wrapper">
+          <a href="#!" class="brand-logo">Logo</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#">About</a></li>
+            <li><a href="./neworder">New Order</a></li>
+            <li><a href="./myorders">My Orders</a></li>
+            <!-- Dropdown Trigger -->
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><%= username%><i class="material-icons right">arrow_drop_down</i></a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <ul class="sidenav grey darken-4" id="mobile-demo">
+        <li><a href="#" class="grey-text text-lighten-2">About</a></li>
+        <li><a href="./neworder" class="grey-text text-lighten-2">New Order</a></li>
+        <li><a href="./myorders" class="grey-text text-lighten-2">My Orders</a></li>
+        <li><a href="../auth/logout" class="grey-text text-lighten-2">Logout</a></li>
+      </ul>
+      <!-- EIGHTY FOUR -->
+      <div class="eightyfour grey lighten-2">
+        <div id="about" class="eightyfourin">
+          About
+        </div>
+      </div>
+      <!-- FOOTER -->
+      <footer class="page-footer grey darken-4">
+        <div class="footer-copyright">
+          BITS WORKSHOP Online Portal
+        </div>
+      </footer>
+    </body>
+  </html>
