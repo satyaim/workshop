@@ -14,7 +14,7 @@ var cusphone;
 
 function place(){
 	if(!document.getElementById("iname").classList.contains("valid")||!document.getElementById("iqty").classList.contains("valid")||!document.getElementById("iabout").classList.contains("valid")||!document.getElementById("cusname").classList.contains("valid")||!document.getElementById("cusphone").classList.contains("valid"))
-		{console.log("Invalid Fields"); return;} 
+		{M.toast({html: 'Invalid Fields!'}); return;} 
 	document.getElementsByClassName("btn-place")[0].classList.add("disabled")
 	iname= document.getElementById("iname").value;
 	iqty= document.getElementById("iqty").value;
@@ -28,6 +28,7 @@ function place(){
 var url="https://bits-workshop.herokuapp.com/";
 var socket= io.connect(url);
 function placeorder(i){
+	M.toast({html: 'Placing Order!'});
 	orderid= Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
   	socket.emit("placeorder",{
 	    iname: iname,
@@ -39,7 +40,8 @@ function placeorder(i){
   	});
 }
 socket.on("orderplaced",function(data){
-  console.log(data);  //orderplaced
+  //console.log(data);  //orderplaced
+  M.toast({html: 'Order Placed!'})
   document.getElementById("placed-id").innerHTML=data.orderid;
   document.getElementById("placed-name").innerHTML=data.ordername;
   document.getElementById("placed-qty").innerHTML=data.orderqty;
