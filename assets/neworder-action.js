@@ -41,7 +41,8 @@ function placeorder(i){
 }
 socket.on("orderplaced",function(data){
   //console.log(data);  //orderplaced
-  M.toast({html: 'Order Placed!'})
+  M.toast({html: 'Order Placed!'});
+  document.getElementById("orderlink").href="./myorders/"+data.orderid;
   document.getElementById("placed-id").innerHTML=data.orderid;
   document.getElementById("placed-name").innerHTML=data.ordername;
   document.getElementById("placed-qty").innerHTML=data.orderqty;
