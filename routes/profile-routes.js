@@ -19,7 +19,7 @@ router.get("/customer", function(req,res){
 	res.render("customer",{username: req.user.username});
 });
 router.get("/neworder", function(req,res){
-	res.render("neworder",{user: req.user});
+	res.render("neworder",{user: req.user, username: req.user.username});
 });
 router.get("/myorders", function(req,res){
 	res.render("myorders",{orders: req.user.orders, username: req.user.username});
