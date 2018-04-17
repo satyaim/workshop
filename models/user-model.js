@@ -20,7 +20,7 @@ const orderSchema= new Schema({
 	orderuserphone: String,
 	orderabout: String,
 	orderstatus: String,
-	orderinfo: [orderinfoSchema],
+	ordershopsnum: Number,
 	ordercost: Number,
 	orderqty: Number
 });

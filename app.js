@@ -5,6 +5,8 @@ const express= require("express");
 const authRoutes= require("./routes/auth-routes");
 //Obtain routes of profile-routes as profileRoutes
 const profileRoutes= require("./routes/profile-routes");
+//Obtain routes of admin-routes as adminRoutes
+const adminRoutes= require("./routes/admin-routes");
 //Obtain passport-setup.js
 const passportSetup= require("./config/passport-setup");
 //Obtain socket.io
@@ -50,8 +52,10 @@ app.use("/user",express.static("./assets"));
 app.set("view engine","ejs");
 //All requests made to auth will be controlled by authRoutes
 app.use("/auth",authRoutes);
-//All requests made to /profile/ to be controlled by profile-routes
+//All requests made to user to be controlled by profile-routes
 app.use("/user",profileRoutes);
+//All requests made to admin will be controlled by authRoutes
+app.use("/admin",adminRoutes);
 //Set index.ejs for request at /
 app.get("/",function(req,res){
 	console.log("req.user\n")
@@ -91,6 +95,61 @@ io.on('connection', function(socket) {
 		    		orderid: orderid
 		    	});
 		    }
+		});
+	});
+	socket.on('acceptorder', function(data){
+		orderid= data.orderid;
+		userid= data.userid;
+		User.findOne({_id: userid, orderids: orderid},function(err,result){
+			if(err)
+				socket.emit('acceptedorder', {
+					yn: 'no'
+				});
+			else{
+				console.log(result);
+				index= result.orderids.indexOf(orderid);
+				console.log(index);
+				var setModifier = { $set: {} };
+			    setModifier.$set['orders.' + index + '.orderstatus'] = 'accepted';
+			    setModifier.$set['orders.' + index + '.ordershopsnum'] = -1;
+				User.updateOne({_id: userid, "orders.orderid": orderid}, setModifier, function(err,result){
+				    if(err) 
+				    	socket.emit('acceptedorder', {
+				    		yn: 'no'
+				    	});
+				    else
+				    	socket.emit('acceptedorder', {
+				    		yn: 'yes'
+				    	});
+				});
+			}
+		});
+	});
+	socket.on('rejectorder', function(data){
+		orderid= data.orderid;
+		userid= data.userid;
+		User.findOne({_id: userid, orderids: orderid},function(err,result){
+			if(err)
+				socket.emit('rejectedorder', {
+					yn: 'no'
+				});
+			else{
+				console.log(result);
+				index= result.orderids.indexOf(orderid);
+				console.log(index);
+				var setModifier = { $set: {} };
+			    setModifier.$set['orders.' + index + '.orderstatus'] = 'rejected';
+				User.updateOne({_id: userid, "orders.orderid": orderid}, setModifier, function(err,result){
+				    if(err) 
+				    	socket.emit('rejectedorder', {
+				    		yn: 'no'
+				    	});
+				    else
+				    	socket.emit('rejectedorder', {
+				    		yn: 'yes'
+				    	});
+				});
+			}
 		});
 	});
 	socket.on('startrate', function(data) {

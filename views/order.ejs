@@ -1,0 +1,219 @@
+  <!DOCTYPE html>
+  <!-- ABOUT -->
+  <html lang="en">
+    <head>
+      <link rel="manifest" href="manifest.json">
+      <link rel="icon" href="" type="image/x-icon">    
+      <link rel="shortcut icon" href="" type="image/x-icon">
+      <meta name="description" content="Bits Workshop Order System"/>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="../../../materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="../../../order-style.css"/>
+      <meta name="theme-color" content="black">
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <script type="text/javascript" src="../../../min.js"></script>
+      <title>Connect</title>
+    </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="../../../jquery214.js"></script>
+      <script type="text/javascript" src="../../../materialize.min.js"></script>
+      <script type="text/javascript" src="../../../order-action.js"></script>
+      <!-- NAVIGATION -->
+      <ul id="dropdown2" class="dropdown-content grey lighten-2">
+        <li><a href="../../" class="grey-text text-darken-4">Logout</a></li>
+      </ul>
+      <nav class="grey darken-3">
+        <div class="nav-wrapper">
+          <a href="#!" class="brand-logo">Logo</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="../../allusers">View Users</a></li>
+            <li><a href="../../allorders">View Orders</a></li>
+            <li><a href="../../allworkers">View Workers</a></li>
+            <!-- Dropdown Trigger -->
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown2"><%= username%><i class="material-icons right">arrow_drop_down</i></a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <ul class="sidenav grey darken-4" id="mobile-demo">
+        <li><a href="../../allusers" class="grey-text text-lighten-2">View Users</a></li>
+        <li><a href="../../allorders" class="grey-text text-lighten-2">View Orders</a></li>
+        <li><a href="../../allworkers" class="grey-text text-lighten-2">View Workers</a></li>
+        <li><a href="../../" class="grey-text text-lighten-2">Logout</a></li>
+      </ul>
+      <!-- EIGHTY FOUR -->
+      <div class="eightyfour grey lighten-2">
+        <div id="myorders" class="eightyfourin">
+          <div class="orderinfo white">
+            <h3 class="center-align">Order Details</h3>
+            <ul>
+              <li><b>Customer Id: </b><span><%= order.orderuserid%></span></li>
+              <li><b>Order Id: </b><span><%= order.orderid%></span></li>
+              <li><b>Item Name: </b><span><%= order.ordername%></span></li>
+              <li><b>Item Description: </b><span><%= order.orderabout%></span></li>
+              <li><b>Item Quantity: </b><span><%= order.orderqty%></span></li>
+              <li><b>Order Status: </b><span><b><%= order.orderstatus%></b></span></li>
+              <li><b>Order Cost: </b>Rs.<span><%= order.cost%></span></li>
+            </ul>
+
+            <h3 class="center-align">Admin Actions</h3>
+              <% if(order.orderstatus=="placed"){ %>
+                <a class="waves-effect waves-light btn btn-accept grey darken-4" onclick="accept();">Accept Order</a>
+                <a class="waves-effect waves-light btn btn-reject grey darken-4" onclick="reject();">Reject Order</a>
+              <% } %>
+              <% if(order.orderstatus=="accepted"){ %>
+                <div class="input-field">
+                  <input id="icost" type="number" class="validate" min="1">
+                  <label for="icost">Enter Total Order Cost</label>
+                </div>
+              <% } %>
+            <h3 class="center-align">Order Timeline</h3>
+            <div class="timeline">
+              <% if(order.orderstatus=="placed"){ %>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Placed</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Accepted</span>
+                      <p>Waiting</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Completed</span>
+                      <p>Waiting</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
+                </div>
+              <% } %>
+              <% if(order.orderstatus=="rejected"){ %>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Placed</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Rejected</span>
+                      <p></p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge red white-text"><i class="material-icons">priority_high</i></div>
+                </div>
+              <% } %>
+              <% if(order.ordershopsnum== -1 ){ %>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Placed</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Accepted</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Completed</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
+                </div>
+              <% } %>
+              <% if(order.orderstatus=="completed"){ %>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Placed</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Accepted</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Shop 2</span>
+                      <p>Expected Time: 11:00am-1:00pm</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Shop 3</span>
+                      <p>Content</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Shop 1</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Completed</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done_all</i></div>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- FOOTER -->
+      <% include partials/footer.ejs %>
+    </body>
+  </html>
