@@ -5,8 +5,8 @@ $(document).ready(function(){
 	$(".sidenav").sidenav();
 });
 
-var url= "http://127.0.0.1:3000/";
-//var url="https://bits-workshop.herokuapp.com/";
+//var url= "http://127.0.0.1:3000/";
+var url="https://bits-workshop.herokuapp.com/";
 var socket= io.connect(url);
 function accept(){
 	userid= window.location.pathname.split( '/' )[3];
