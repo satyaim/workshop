@@ -136,6 +136,7 @@ io.on('connection', function(socket) {
 			else{
 				console.log(result);
 				index= result.orderids.indexOf(orderid);
+				infoindex= 0;
 				console.log(index);
 				var setModifier = { $set: {} };
 			    setModifier.$set['orders.' + index + '.orderstatus'] = 'rejected';
@@ -151,6 +152,53 @@ io.on('connection', function(socket) {
 				});
 			}
 		});
+	});
+	socket.on('confirm',function(data){
+		userid= data.userid;
+		orderid= data.orderid;
+		cost= parseInt(data.icost)
+		User.findOne({_id: userid, orderids: orderid},function(err,result){
+			if(err)
+				socket.emit('confirmed', {
+					yn: 'no'
+				});
+			else{
+				console.log(result);
+				index= result.orderids.indexOf(orderid);
+				console.log(index);
+				var setModifier = { $set: {} };
+			    setModifier.$set['orders.' + index + '.ordercost'] = cost;
+				setModifier.$set['orders.' + index + '.orderstatus'] = 'running';
+				//pushModifier.$push['orders.'+ index + '.orderinfo' + infoindex + '.shop'] = 'dumb';
+			    for(infoindex=0; infoindex<data.shops.length-1; infoindex++){
+			    	iter=infoindex;
+			    	User.updateOne({_id: userid, "orders.orderid": orderid},{$push : {"orders.$.orderinfo" : { shop: data.shops[iter], index: iter/2, worker: data.shops[iter+1][0], worker: data.shops[iter+1][0], fromdate: data.shops[iter+1][1], fromtime: data.shops[iter+1][2], todate: data.shops[iter+1][3], totime: data.shops[iter+1][4], description: data.shops[iter+1][5], inputs: data.shops[iter+1][6]  }}}, function(err,res){
+			    		if(err){
+			    			console.log("err");
+			    			socket.emit('confirmed', {
+				    			yn: 'no'
+				    		});
+			    			return;
+			    		}
+				    	else {
+				    		console.log("ok");
+				    	}
+			    	});
+			    	infoindex++;
+			    }
+				User.updateOne({_id: userid, "orders.orderid": orderid}, setModifier, function(err,result){
+				    if(err) 
+				    	socket.emit('confirmed', {
+				    		yn: 'no'
+				    	});
+				    else
+				    	socket.emit('confirmed', {
+				    		yn: 'yes'
+				    	});
+				});
+			}
+		});
+		console.log(data);
 	});
 	socket.on('startrate', function(data) {
 		var lecid= data.lecture_id;

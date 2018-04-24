@@ -57,73 +57,184 @@
               <li><b>Item Name: </b><span><%= order.ordername%></span></li>
               <li><b>Item Quantity: </b><span><%= order.orderqty%></span></li>
               <li><b>Order Status: </b><span><%= order.orderstatus%></span></li>
-              <li><b>Order Cost: </b>Rs.<span><%= order.cost%></span></li>
+              <li><b>Order Cost: </b>Rs.<span><%= order.ordercost%></span></li>
             </ul>
             <h3 class="center-align">Order Timeline</h3>
             <div class="timeline">
-              <div class="timeline-event">
-                <div class="card timeline-content">
-                  <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Order Placed</span>
-                    <p>Completed</p>
+              <% if(order.orderstatus=="placed"){ %>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Placed</span>
+                      <p>Completed</p>
+                    </div>
                   </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
                 </div>
-                <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
-              </div>
-              <div class="timeline-event">
-                <div class="card timeline-content">
-                  <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Order Accepted</span>
-                    <p>Completed</p>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Accepted</span>
+                      <p>Waiting</p>
+                    </div>
                   </div>
+                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
                 </div>
-                <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
-              </div>
-              <div class="timeline-event">
-                <div class="card timeline-content">
-                  <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Shop 1</span>
-                    <p>Completed</p>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Completed</span>
+                      <p>Waiting</p>
+                    </div>
                   </div>
+                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
                 </div>
-                <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
-              </div>
-              <div class="timeline-event">
-                <div class="card timeline-content">
-                  <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Shop 2</span>
-                    <p>Expected Time: 11:00am-1:00pm</p>
+              <% } %>
+              <% if(order.orderstatus=="accepted"){ %>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Placed</span>
+                      <p>Completed</p>
+                    </div>
                   </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
                 </div>
-                <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
-              </div>
-              <div class="timeline-event">
-                <div class="card timeline-content">
-                  <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Shop 3</span>
-                    <p>Content</p>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Accepted</span>
+                      <p>Completed</p>
+                    </div>
                   </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
                 </div>
-                <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
-              </div>
-              <div class="timeline-event">
-                <div class="card timeline-content">
-                  <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Order Rejected</span>
-                    <p>Content</p>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Completed</span>
+                      <p>Waiting</p>
+                    </div>
                   </div>
+                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
                 </div>
-                <div class="timeline-badge red white-text"><i class="material-icons">priority_high</i></div>
-              </div>
-              <div class="timeline-event">
-                <div class="card timeline-content">
-                  <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Order Completed</span>
-                    <p>Content</p>
+              <% } %>
+              <% if(order.orderstatus=="rejected"){ %>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Placed</span>
+                      <p>Completed</p>
+                    </div>
                   </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
                 </div>
-                <div class="timeline-badge green white-text"><i class="material-icons">done_all</i></div>
-              </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Rejected</span>
+                      <p></p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge red white-text"><i class="material-icons">priority_high</i></div>
+                </div>
+              <% } %>
+              <% if(order.orderstatus=="running" ){ %>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Placed</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Accepted</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
+                </div>
+                <% for(var i= order.orderinfo.length-1 ; i >= 0; i--) { %>
+                  <div class="timeline-event">
+                    <div class="card timeline-content">
+                      <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4"><%= order.orderinfo[i].shop %></span>
+                        <p><span class="fromtime"><%=  order.orderinfo[i].fromtime %></span>, <span class="fromdate"><%= order.orderinfo[i].fromdate %></span> - <span class="totime"><%= order.orderinfo[i].totime %></span>, <span class="todate"><%= order.orderinfo[i].todate %></span></p>
+                      </div>
+                    </div>
+                    <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
+                  </div>
+                <% } %>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Completed</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
+                </div>
+              <% } %>
+              <% if(order.orderstatus=="completed"){ %>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Placed</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Accepted</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Shop 2</span>
+                      <p>Expected Time: 11:00am-1:00pm</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Shop 3</span>
+                      <p>Content</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Shop 1</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
+                </div>
+                <div class="timeline-event">
+                  <div class="card timeline-content">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">Order Completed</span>
+                      <p>Completed</p>
+                    </div>
+                  </div>
+                  <div class="timeline-badge green white-text"><i class="material-icons">done_all</i></div>
+                </div>
+              <% } %>
             </div>
           </div>
         </div>

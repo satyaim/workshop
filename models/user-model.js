@@ -2,15 +2,16 @@
 const mongoose= require("mongoose");
 const Schema= mongoose.Schema;
 
-const ynSchema= new Schema({
-	status: Number,
-	idyn: Number,
-	yes: Number,
-	no: Number,
-	ques: String 
-});
 const orderinfoSchema= new Schema({
-	status: Number,
+	index: Number,
+	shop: String,
+	worker: String,
+	fromdate: String,
+	fromtime: String,
+	todate: String,
+	totime: String,
+	description: String,
+	inputs: String
 });
 const orderSchema= new Schema({
 	ordername: String,
@@ -22,7 +23,8 @@ const orderSchema= new Schema({
 	orderstatus: String,
 	ordershopsnum: Number,
 	ordercost: Number,
-	orderqty: Number
+	orderqty: Number,
+	orderinfo: [orderinfoSchema]
 });
 const userSchema= new Schema({
 	username: String,
