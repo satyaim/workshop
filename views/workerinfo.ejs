@@ -9,30 +9,31 @@
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="../../materialize.min.css"  media="screen,projection"/>
-      <link type="text/css" rel="stylesheet" href="../../userinfo-style.css"/>
+      <link type="text/css" rel="stylesheet" href="/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="/userinfo-style.css"/>
       <meta name="theme-color" content="black">
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <script type="text/javascript" src="../../min.js"></script>
+      <script type="text/javascript" src="/min.js"></script>
       <title>Connect</title>
     </head>
 
     <body>
       <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="../../jquery214.js"></script>
-      <script type="text/javascript" src="../../materialize.min.js"></script>
-      <script type="text/javascript" src="../../dashboard-action.js"></script>
+      <script type="text/javascript" src="/jquery214.js"></script>
+      <script type="text/javascript" src="/materialize.min.js"></script>
+      <script type="text/javascript" src="/dashboard-action.js"></script>
       <!-- NAVIGATION -->
       <ul id="dropdown2" class="dropdown-content grey lighten-2">
         <li><a href="../../" class="grey-text text-darken-4">Logout</a></li>
       </ul>
       <nav class="grey darken-3">
         <div class="nav-wrapper">
-          <a href="#!" class="brand-logo"><img src="../logo.png" id="logo"></a>
+          <a href="#!" class="brand-logo"><img src="logo.png" id="logo"></a>
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <ul class="right hide-on-med-and-down">
             <li><a target="_blank" href="../addworker">Add Worker</a></li>
+            <li><a href="../addorder">Add Order</a></li>
             <li><a href="../allusers">View Users</a></li>
             <li><a href="../allorders">View Orders</a></li>
             <li><a href="../allworkers">View Workers</a></li>
@@ -44,6 +45,7 @@
 
       <ul class="sidenav grey darken-4" id="mobile-demo">
         <li><a href="../addworker" class="grey-text text-lighten-2">Add Worker</a></li>
+        <li><a href="../addorder" class="grey-text text-lighten-2">Add Order</a></li>
         <li><a href="../allusers" class="grey-text text-lighten-2">View Users</a></li>
         <li><a href="../allorders" class="grey-text text-lighten-2">View Orders</a></li>
         <li><a href="../allworkers" class="grey-text text-lighten-2">View Workers</a></li>
@@ -51,39 +53,29 @@
       </ul>
       <!-- EIGHTY FOUR -->
       <div class="eightyfour grey lighten-2">
-        <div id="allusers" class="eightyfourin">
-          <table class="centered table white">
+        <table class="centered table white">
             <thead>
               <tr>
-                  <th>Order Name</th>
-                  <th>Order Id</th>
-                  <th>Item Qty</th>
-                  <th>Order Status</th>
-                  <th>Configure Order</th>
+                  <th>Last Login</th>
+                  <th>Last Logout</th>
               </tr>
             </thead>
 
             <tbody>
-              <% for(var i=0; i < data.orders.length; i++) { %>
-                <tr>
-                  <td><%= data.orders[i].ordername %></td>
-                  <td><%= data.orders[i].orderid %></td>
-                  <td><%= data.orders[i].orderqty %></td>
-                  <td><%= data.orders[i].orderstatus %></td>
-                  <td><a href="../order/<%= data._id %>/<%= data.orders[i].orderid %>">Click Here</a></td>
-                 </tr>
+              <% x=data.login.length; y=data.logout.length; for(var i=0; i < ((x>y)?x:y); i++){ %>
+              <tr>
+                  <td><%= data.login[i] %></td>
+                  <td><%= data.logout[i] %></td>
+              </tr>
               <% } %>
             </tbody>
-
             <tfoot>
               <tr>
-                  <th>Customer Name: <%= data.username %></th>
-                  <th>Customer Id: <%= data._id %></th>
-                  <th>Number of Orders: <%= data.orders.length %></th>
+                  <th>Worker Name: <%= data.username %></th>
+                  <th>Worker Id: <%= data._id %></th>
               </tr>
             </tfoot>
           </table>
-        </div>
       </div>
       <!-- FOOTER -->
       <% include partials/footer.ejs %>

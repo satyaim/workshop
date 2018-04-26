@@ -7,6 +7,8 @@ const authRoutes= require("./routes/auth-routes");
 const profileRoutes= require("./routes/profile-routes");
 //Obtain routes of admin-routes as adminRoutes
 const adminRoutes= require("./routes/admin-routes");
+//Obtain routes of worker-routes as workerRoutes
+const workerRoutes= require("./routes/worker-routes");
 //Obtain passport-setup.js
 const passportSetup= require("./config/passport-setup");
 //Obtain socket.io
@@ -56,11 +58,16 @@ app.use("/auth",authRoutes);
 app.use("/user",profileRoutes);
 //All requests made to admin will be controlled by authRoutes
 app.use("/admin",adminRoutes);
+//All requests made to worker will be controlled by workerRoutes
+app.use("/worker",workerRoutes);
 //Set index.ejs for request at /
 app.get("/",function(req,res){
 	console.log("req.user\n")
 	console.log(req.user);
 	res.render("index",{ user: req.user });
+});
+app.get("/login",function(req,res){
+	res.render("login");
 });
 //Listen to port
 const server= app.listen(port, function(){
@@ -172,7 +179,8 @@ io.on('connection', function(socket) {
 				//pushModifier.$push['orders.'+ index + '.orderinfo' + infoindex + '.shop'] = 'dumb';
 			    for(infoindex=0; infoindex<data.shops.length-1; infoindex++){
 			    	iter=infoindex;
-			    	User.updateOne({_id: userid, "orders.orderid": orderid},{$push : {"orders.$.orderinfo" : { shop: data.shops[iter], index: iter/2, worker: data.shops[iter+1][0], worker: data.shops[iter+1][0], fromdate: data.shops[iter+1][1], fromtime: data.shops[iter+1][2], todate: data.shops[iter+1][3], totime: data.shops[iter+1][4], description: data.shops[iter+1][5], inputs: data.shops[iter+1][6]  }}}, function(err,res){
+			    	console.log(data);
+			    	User.updateOne({_id: userid, "orders.orderid": orderid},{$push : {"orders.$.orderinfo" : { shop: data.shops[iter], index: iter/2, workerid: data.shops[iter+1][0], worker: data.shops[iter+1][7], fromdate: data.shops[iter+1][1], fromtime: data.shops[iter+1][2], todate: data.shops[iter+1][3], totime: data.shops[iter+1][4], description: data.shops[iter+1][5], inputs: data.shops[iter+1][6]  }}}, function(err,res){
 			    		if(err){
 			    			console.log("err");
 			    			socket.emit('confirmed', {
@@ -183,6 +191,14 @@ io.on('connection', function(socket) {
 				    	else {
 				    		console.log("ok");
 				    	}
+			    	});
+			    	User.updateOne({_id: data.shops[iter+1][0], type: "worker"}, {$push: { work_shop: data.shops[iter], work_fromtime: data.shops[iter+1][2], work_fromdate: data.shops[iter+1][1], work_totime: data.shops[iter+1][4], work_todate: data.shops[iter+1][3],work_describe: data.shops[iter+1][5], work_inputs: data.shops[iter+1][6]}}, function(err,res){
+			    		if(err){
+			    			console.log("err")
+			    		}
+			    		else{
+			    			console.log("ok")
+			    		}
 			    	});
 			    	infoindex++;
 			    }

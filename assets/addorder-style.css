@@ -1,20 +1,20 @@
 body{ max-height: 100vh; max-width: 100vw; overflow-y: hidden;}
 nav, nav>div, nav>div>a, nav>div>a>i, nav>div>ul, nav>div>ul>li, nav>div>ul>li>a{ height: 8vh!important; }
 #logo{height: 6vh; margin-top: 1vh; margin-left: 1vw;}
-.eightyfour{ height: 84vh; width: 100vw; max-width: 100vw; max-height: 84vh; margin: 0; display: flex; justify-content: center;}
+.eightyfour{ height: 84vh; width: 100vw; max-width: 100vw; max-height: 84vh; margin: 0;}
 .eightyfourin{  height: 84vh; width: 100vw; max-width: 100vw; max-height: 84vh; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
 #developer{ position: fixed; bottom: 1vh; right: 4vw;}
 .btn-place{ width: 80%; max-width: 200px; margin-bottom: 5vh; display: flex; justify-content: center;}
 .page-footer{ position: fixed; bottom: 0%; left: 0; width: 100%; padding-top: 0; transition: bottom 0.8s; height: 8vh; z-index: 10000;}
 .footer-copyright{ justify-content: center!important}
-.table {border: 0; border-collapse: collapse; min-width: 80vw; max-width: 1000px;}    
-.table tr {display: flex;}    
-.table>tbody>tr>td { padding: 2vmin 0; }
-.table td {flex: 1;}    
-.table thead tr {overflow-y: scroll; color: black;}    
-.table thead th {flex: 1; display: block; height: 8vh;} 
-.table tfoot tr {overflow-y: scroll; color: black;}    
-.table tfoot th {flex: 1; display: block; height: 8vh;}  
-.table tbody {display: block; overflow-y: scroll; height: 68vh;}
+.formrow{ height: 84vh; max-height: 84vh; display: flex; align-items: center; margin: 0;}
+.form{ max-width: 100vw; min-width: 80vw; height: 84vh; max-height: 84vh; overflow-y: auto;}
+.form>.row {margin: 0;}
+.orderdiv{display: flex; justify-content: center;}
+.hiddendiv{ max-width: 100vw;}
+.modal {top: 20vh; z-index: 1000;}
+.modal>p {text-align: center; padding: 1vh 1vw;}
+.modal-content{ overflow-y: auto;}
+.foot{text-align: center!important;}
 .hiddendiv{ max-width: 100vw;}
 a{cursor: pointer;}

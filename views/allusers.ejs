@@ -29,9 +29,11 @@
       </ul>
       <nav class="grey darken-3">
         <div class="nav-wrapper">
-          <a href="#!" class="brand-logo">Logo</a>
+          <a href="#!" class="brand-logo"><img src="../logo.png" id="logo"></a>
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <ul class="right hide-on-med-and-down">
+            <li><a target="_blank" href="./addworker">Add Worker</a></li>
+            <li><a href="./addorder">Add Order</a></li>
             <li><a href="./allusers">View Users</a></li>
             <li><a href="./allorders">View Orders</a></li>
             <li><a href="./allworkers">View Workers</a></li>
@@ -42,6 +44,8 @@
       </nav>
 
       <ul class="sidenav grey darken-4" id="mobile-demo">
+        <li><a href="./addworker" class="grey-text text-lighten-2">Add Worker</a></li>
+        <li><a href="./addorder" class="grey-text text-lighten-2">Add Order</a></li>
         <li><a href="./allusers" class="grey-text text-lighten-2">View Users</a></li>
         <li><a href="./allorders" class="grey-text text-lighten-2">View Orders</a></li>
         <li><a href="./allworkers" class="grey-text text-lighten-2">View Workers</a></li>
@@ -56,6 +60,7 @@
                   <th>User Name</th>
                   <th>User Id</th>
                   <th>Number Of Orders</th>
+                  <th>Type</th>
                   <th>See Details</th>
               </tr>
             </thead>
@@ -66,6 +71,7 @@
                   <td><%= data[i].username %></td>
                   <td><%= data[i]._id %></td>
                   <td><%= data[i].ordernames.length %></td>
+                  <td><%= data[i].type %></td>
                   <td><a href="./allusers/<%= data[i]._id %>">Click Here</a></td>
                  </tr>
               <% } %>

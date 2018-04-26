@@ -1,21 +1,48 @@
 //admin-routes.js
 const router= require("express").Router();
 const User= require("../models/user-model");
-/*
-// authCheck as middleware to check if logged in or not
-const authCheck= function(req,res,next){
-	if(!req.user){
-		//not logged in
-		res.redirect("/auth/login");
-	}
-	else
-		next();
-}
-*/
-router.get("/dashboard", function(req,res){
-	res.render("dashboard", {username: "admin"});
+const passport = require('passport')
+
+router.get("/logout", function(req,res){
+	//res.send("Will log you out ;)");
+	req.logout();
+	res.redirect("/admin");
 });
-router.get("/allusers", function(req,res){
+
+router.get("/google/admin",passport.authenticate("google-adm",{
+	scope: ['profile']
+}));
+
+router.get("/google/redirectadm",passport.authenticate("google-adm"), function(req,res){
+	//res.send(req.user);
+	res.redirect("/admin/dashboard");
+});
+
+router.get("/google/redirectwork",passport.authenticate("google-work"), function(req,res){
+	//res.send(req.user);
+	res.redirect("/worker");
+});
+
+const adminCheck= function(req,res,next){
+	if(!req.user || req.user.type!='admin'){
+		//not logged in
+		res.redirect("/");
+	}
+	else{
+		next();
+		console.log(req.user)
+	}
+}
+
+
+router.get("/addworker", adminCheck, passport.authenticate("google-work",{
+	scope: ['profile']
+}));
+
+router.get("/dashboard", adminCheck, function(req, res){
+	res.render("dashboard", {username: "admin"})
+})
+router.get("/allusers", adminCheck, function(req,res){
 	User.find({},function(err,data){
 			if(err)
 				res.send("Error All Users");
@@ -24,7 +51,7 @@ router.get("/allusers", function(req,res){
 			}
 	});
 });
-router.get("/allusers/:userid", function(req,res){
+router.get("/allusers/:userid", adminCheck, function(req,res){
 	userid=req.params.userid;
 	User.findOne({_id: userid},function(err,data){
 			if(err)
@@ -34,7 +61,7 @@ router.get("/allusers/:userid", function(req,res){
 			}
 	});
 });
-router.get("/allorders", function(req,res){
+router.get("/allorders", adminCheck, function(req,res){
 	User.find({},function(err,data){
 			if(err)
 				res.send("Error");
@@ -43,21 +70,51 @@ router.get("/allorders", function(req,res){
 			}
 	});
 });
-router.get("/order/:userid/:orderid", function(req,res){
+router.get("/order/:userid/:orderid", adminCheck, function(req,res){
 	userid=req.params.userid;
 	orderid=req.params.orderid;
+	var workers;
+	User.find({type: "worker"}, function(err,data){
+		workers= data;
+	}).then(function(){
 	User.findOne({_id: userid},function(err,data){
 			if(err)
 				res.send("No Such User");
 			else{
-				if(data.orderids.indexOf(orderid)>-1)
-					res.render("order", {username: "admin", order: data.orders[data.orderids.indexOf(orderid)]});
+				index=data.orderids.indexOf(orderid);
+				if(index>-1)
+					res.render("order", {username: "admin", order: data.orders[index], workers: workers});
 				else
 					res.send("No Such Order For Given User")
 			}
 	});
+	});
 });
-router.get("/allworkers", function(req,res){
-	res.render("allworkers", {username: "admin"});
+router.get("/allworkers",  adminCheck, function(req,res){
+	User.find({},function(err,data){
+			if(err)
+				res.send("Error");
+			else{
+				res.render("allworkers", {username: "admin", data: data});
+			}
+	});
 });
+router.get("/allworkers/:userid",  adminCheck, function(req,res){
+	userid=req.params.userid;
+	User.findOne({_id: userid, type: "worker"},function(err,data){
+			if(err)
+				res.send("Error");
+			else{
+				console.log("data")
+				console.log(data)
+				res.render("workerinfo", {username: "admin", data: data});
+			}
+	});
+});
+router.get("/addorder",  adminCheck, function(req,res){
+	res.render("addorder", {username: "admin"});
+});
+router.get("/", function(req,res){
+	res.render("admin");
+})
 module.exports= router;

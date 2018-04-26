@@ -2,9 +2,9 @@
 const router= require("express").Router();
 // authCheck as middleware to check if logged in or not
 const authCheck= function(req,res,next){
-	if(!req.user){
+	if(!req.user || req.user.type!="customer"){
 		//not logged in
-		res.redirect("/auth/login");
+		res.redirect("/");
 	}
 	else
 		next();
@@ -14,17 +14,17 @@ router.get("/logout", function(req,res){
 	req.logout();
 	res.redirect("/");
 });
-router.get("/customer", function(req,res){
+router.get("/customer", authCheck, function(req,res){
 	//res.send("You are logged in as: "+ req.user.username);
 	res.render("customer",{username: req.user.username});
 });
-router.get("/neworder", function(req,res){
+router.get("/neworder", authCheck, function(req,res){
 	res.render("neworder",{user: req.user, username: req.user.username});
 });
-router.get("/myorders", function(req,res){
+router.get("/myorders", authCheck, function(req,res){
 	res.render("myorders",{orders: req.user.orders, username: req.user.username});
 });
-router.get("/myorders/:orderid", function(req,res){
+router.get("/myorders/:orderid", authCheck, function(req,res){
 	orderid=req.params.orderid;
 	index=req.user.orderids.indexOf(orderid);
 	if(index>-1)

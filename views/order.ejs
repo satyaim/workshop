@@ -29,9 +29,11 @@
       </ul>
       <nav class="grey darken-3">
         <div class="nav-wrapper">
-          <a href="#!" class="brand-logo">Logo</a>
+          <a href="#!" class="brand-logo"><img src="../logo.png" id="logo"></a>
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <ul class="right hide-on-med-and-down">
+            <li><a href="../..addworker" class="grey-text text-lighten-2">Add Worker</a></li>
+            <li><a href="../../allusers">Add Order</a></li>
             <li><a href="../../allusers">View Users</a></li>
             <li><a href="../../allorders">View Orders</a></li>
             <li><a href="../../allworkers">View Workers</a></li>
@@ -42,6 +44,7 @@
       </nav>
 
       <ul class="sidenav grey darken-4" id="mobile-demo">
+        <li><a href="../../addorder" class="grey-text text-lighten-2">Add Order</a></li>
         <li><a href="../../allusers" class="grey-text text-lighten-2">View Users</a></li>
         <li><a href="../../allorders" class="grey-text text-lighten-2">View Orders</a></li>
         <li><a href="../../allworkers" class="grey-text text-lighten-2">View Workers</a></li>
@@ -90,15 +93,11 @@
                               </select>
                             </div>
                             <div class="input-field row grey-text text-darken-4 white worker">
-                              <select class="col s6">
+                              <select class="col s6 selectworker">
                                 <option value="" disabled selected>Choose Worker</option>
-                                <option value="1">Worker 1</option>
-                                <option value="2">Worker 2</option>
-                                <option value="3">Worker 3</option>
-                                <option value="4">Worker 4</option>
-                                <option value="5">Worker 5</option>
-                                <option value="6">Worker 6</option>
-                                <option value="7">Worker 7</option>
+                                <% for(var i=0; i< workers.length; i++) { %>
+                                  <option value="<%= workers[i]._id %>"> <%= workers[i].username %>||<%= workers[i]._id %> </option>
+                                <% } %>
                               </select>
                               <span class="col s2">From</span>
                               <input type="text" class="datepicker col s5 validate" placeholder="Date [From]">
@@ -227,7 +226,7 @@
                   <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
                 </div>
                 <% for(var i= order.orderinfo.length-1 ; i >= 0; i--) { %>
-                  <div class="timeline-event">
+                  <div class="timeline-event shoptime">
                     <div class="card timeline-content">
                       <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4"><%= order.orderinfo[i].shop %></span>
@@ -237,7 +236,7 @@
                     <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
                   </div>
                 <% } %>
-                <div class="timeline-event">
+                <div class="timeline-event completed">
                   <div class="card timeline-content">
                     <div class="card-content">
                       <span class="card-title activator grey-text text-darken-4">Order Completed</span>
@@ -267,7 +266,7 @@
                   <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
                 </div>
                 <% for(var i= order.orderinfo.length-1 ; i >= 0; i--) { %>
-                  <div class="timeline-event">
+                  <div class="timeline-event shoptime">
                     <div class="card timeline-content">
                       <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4"><%= order.orderinfo[i].shop %></span>
@@ -277,7 +276,7 @@
                     <div class="timeline-badge green white-text"><i class="material-icons">done_all</i></div>
                   </div>
                 <% } %>
-                <div class="timeline-event">
+                <div class="timeline-event completed">
                   <div class="card timeline-content">
                     <div class="card-content">
                       <span class="card-title activator grey-text text-darken-4">Order Completed</span>

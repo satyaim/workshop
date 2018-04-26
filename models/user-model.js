@@ -11,7 +11,8 @@ const orderinfoSchema= new Schema({
 	todate: String,
 	totime: String,
 	description: String,
-	inputs: String
+	inputs: String,
+	workerid: String
 });
 const orderSchema= new Schema({
 	ordername: String,
@@ -27,13 +28,26 @@ const orderSchema= new Schema({
 	orderinfo: [orderinfoSchema]
 });
 const userSchema= new Schema({
+	type: String,
 	username: String,
 	googleId: String,
 	thumbnail: String,
 	cover: String,
 	ordernames: [String],
 	orderids: [String],
-	orders: [orderSchema]
+	orders: [orderSchema],
+	workerid: String,
+	name: String,
+	password: String,
+	login: [String],
+	logout: [String],
+	work_shop: [String],
+	work_fromtime: [String],
+	work_fromdate: [String],
+	work_totime: [String],
+	work_todate: [String],
+	work_describe: [String],
+	work_inputs: [String]
 });
 
 const User= mongoose.model('user',userSchema);

@@ -1,4 +1,4 @@
-//neworder-action.js
+//addorder-action.js
 $(document).ready(function(){
 	console.log("here");
 	$(".dropdown-trigger").dropdown();
