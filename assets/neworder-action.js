@@ -11,6 +11,7 @@ var iqty;
 var iabout;
 var cusname;
 var cusphone;
+var imageurl;
 
 function place(){
 	if(!document.getElementById("iname").classList.contains("valid")||!document.getElementById("iqty").classList.contains("valid")||!document.getElementById("iabout").classList.contains("valid")||!document.getElementById("cusname").classList.contains("valid")||!document.getElementById("cusphone").classList.contains("valid"))
@@ -21,6 +22,7 @@ function place(){
 	iabout= document.getElementById("iabout").value;
 	cusname= document.getElementById("cusname").value;
 	cusphone= document.getElementById("cusphone").value;
+	imageurl= document.getElementById("imageurl").value;
 	placeorder();
 }
 
@@ -36,7 +38,8 @@ function placeorder(i){
 	    iabout: iabout,
 	    cusname: cusname,
 	    cusphone: cusphone,
-	    orderid: orderid
+	    orderid: orderid,
+	    imageurl: imageurl
   	});
 }
 socket.on("orderplaced",function(data){

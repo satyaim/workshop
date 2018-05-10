@@ -1,0 +1,63 @@
+  <!DOCTYPE html>
+  <!-- ABOUT -->
+  <html lang="en">
+    <head>
+      <link rel="manifest" href="manifest.json">
+      <link rel="icon" href="" type="image/x-icon">    
+      <link rel="shortcut icon" href="" type="image/x-icon">
+      <meta name="description" content="Bits Workshop Order System"/>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="../materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="../attendance-style.css"/>
+      <meta name="theme-color" content="black">
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <script type="text/javascript" src="../min.js"></script>
+      <title>Connect</title>
+    </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="../jquery214.js"></script>
+      <script type="text/javascript" src="../materialize.min.js"></script>
+      <script type="text/javascript" src="../attendance-action.js"></script>
+      <!-- NAVIGATION -->
+      <% include partials/downAdmL1.ejs %>
+      <!-- EIGHTY FOUR -->
+      <div class="eightyfour grey lighten-2">
+        <table class="centered table white">
+            <thead>
+              <tr>
+                  <th>User Name</th>
+                  <th>Worker Id</th>
+                  <th>IN</th>
+                  <th>OUT</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% for(var i=0; i < data.length; i++) { if(data[i].type=="worker"){ %>
+                <tr>
+                  <td><%= data[i].username%></td>
+                  <td><%= data[i].wid %></td>
+                  <% if(!(data[i].login[data[i].login.length-1] || data[i].logout[data[i].logout.length-1])){ %>
+                    <td><a class="btn grey darken-3 <%= data[i]._id %> in" onclick="win('<%= data[i]._id %>','<%= data[i].username%>')">IN</a></td>
+                    <td><a class="btn grey darken-3 <%= data[i]._id %> out" onclick="wout('<%= data[i]._id %>','<%= data[i].username%>')">OUT</a></td>
+                  <% } else if(data[i].login[data[i].login.length-1]>data[i].logout[data[i].logout.length-1] || !data[i].logout[data[i].logout.length-1]){ %>
+                    <td><a class="btn grey darken-3 <%= data[i]._id %> in disabled" onclick="win('<%= data[i]._id %>','<%= data[i].username%>')">IN</a></td>
+                    <td><a class="btn grey darken-3 <%= data[i]._id %> out" onclick="wout('<%= data[i]._id %>','<%= data[i].username%>')">OUT</a></td>
+                  <%} else {%>
+                    <td><a class="btn grey darken-3 <%= data[i]._id %> in" onclick="win('<%= data[i]._id %>','<%= data[i].username%>')">IN</a></td>
+                    <td><a class="btn grey darken-3 <%= data[i]._id %> out disabled" onclick="wout('<%= data[i]._id %>','<%= data[i].username%>')">OUT</a></td>
+                  <% } %>
+                 </tr>
+              <% }} %>
+            </tbody>
+          </table>
+      </div>
+      <!-- FOOTER -->
+      <% include partials/footer.ejs %>
+    </body>
+  </html>

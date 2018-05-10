@@ -24,31 +24,7 @@
       <script type="text/javascript" src="../../materialize.min.js"></script>
       <script type="text/javascript" src="../../dashboard-action.js"></script>
       <!-- NAVIGATION -->
-      <ul id="dropdown2" class="dropdown-content grey lighten-2">
-        <li><a href="../../" class="grey-text text-darken-4">Logout</a></li>
-      </ul>
-      <nav class="grey darken-3">
-        <div class="nav-wrapper">
-          <a href="#!" class="brand-logo"><img src="../logo.png" id="logo"></a>
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul class="right hide-on-med-and-down">
-            <li><a target="_blank" href="../addworker">Add Worker</a></li>
-            <li><a href="../allusers">View Users</a></li>
-            <li><a href="../allorders">View Orders</a></li>
-            <li><a href="../allworkers">View Workers</a></li>
-            <!-- Dropdown Trigger -->
-            <li><a class="dropdown-trigger" href="#!" data-target="dropdown2"><%= username%><i class="material-icons right">arrow_drop_down</i></a></li>
-          </ul>
-        </div>
-      </nav>
-
-      <ul class="sidenav grey darken-4" id="mobile-demo">
-        <li><a href="../addworker" class="grey-text text-lighten-2">Add Worker</a></li>
-        <li><a href="../allusers" class="grey-text text-lighten-2">View Users</a></li>
-        <li><a href="../allorders" class="grey-text text-lighten-2">View Orders</a></li>
-        <li><a href="../allworkers" class="grey-text text-lighten-2">View Workers</a></li>
-        <li><a href="../../" class="grey-text text-lighten-2">Logout</a></li>
-      </ul>
+      <% include partials/downAdmL2.ejs %>
       <!-- EIGHTY FOUR -->
       <div class="eightyfour grey lighten-2">
         <div id="allusers" class="eightyfourin">

@@ -51,7 +51,7 @@ passport.use("google-adm",new GoogleStrategy(
 ));
 passport.use("google-work",new GoogleStrategy(
 	{
-		callbackURL: "/admin/google/redirectwork",
+		callbackURL: "/admin/google/redirectadm",
 		clientID: key.google.clientID,
 		clientSecret: key.google.clientSecret
 	},
@@ -61,7 +61,7 @@ passport.use("google-work",new GoogleStrategy(
 		console.log(accessToken);
 		console.log(refreshToken);
 		//Match one user from User
-		User.findOne({ googleId: profile.id, type: "worker"}).then(function(curr_user){
+		User.findOne({ googleId: profile.id, type: "admin"}).then(function(curr_user){
 			if(curr_user){
 				console.log("current user is" + curr_user);
 				done(null,curr_user);
@@ -69,7 +69,7 @@ passport.use("google-work",new GoogleStrategy(
 			else{
 				console.log("adding new user");
 				new User({
-					type: "worker",
+					type: "admin",
 					username: profile.displayName,
 					googleId: profile.id,
 					thumbnail: profile._json.image.url

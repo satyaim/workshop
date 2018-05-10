@@ -25,7 +25,9 @@ const orderSchema= new Schema({
 	ordershopsnum: Number,
 	ordercost: Number,
 	orderqty: Number,
-	orderinfo: [orderinfoSchema]
+	orderimage: String,
+	orderinfo: [orderinfoSchema],
+	imageurl: String
 });
 const userSchema= new Schema({
 	type: String,
@@ -41,6 +43,9 @@ const userSchema= new Schema({
 	password: String,
 	login: [String],
 	logout: [String],
+	lastlogin: String,
+	lastlogout: String,
+	wid: String,
 	work_shop: [String],
 	work_fromtime: [String],
 	work_fromdate: [String],

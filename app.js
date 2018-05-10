@@ -87,12 +87,15 @@ io.on('connection', function(socket) {
     	var cusname= data.cusname;
     	var cusphone= data.cusphone;
     	var orderid= data.orderid;
+    	var imageurl= data.imageurl;
+    	console.log('j');
     	session(req, res, () => {
 	        console.log(req.session);
 	        id= req.session.passport.user;
     	});
+    	console.log('j');
     	socket.join(id);
-		User.updateOne({_id: id},{$push : {ordernames: iname, orderids: orderid, orders: {orderuserphone: cusphone, orderstatus: "placed", orderabout: iabout, orderqty: iqty, orderid: orderid, ordername: iname, orderuserid: id}}}, function(err,res){
+		User.updateOne({_id: id},{$push : {ordernames: iname, orderids: orderid, orders: {orderuserphone: cusphone, orderstatus: "placed", orderabout: iabout, orderqty: iqty, orderid: orderid, ordername: iname, orderuserid: id, imageurl: imageurl}}}, function(err,res){
 		    if (err)  console.log(err);
 		    else{
 		    	console.log(res);
@@ -215,6 +218,52 @@ io.on('connection', function(socket) {
 			}
 		});
 		console.log(data);
+	});
+	socket.on('addworker', function(data) {
+		var wname= data.wname;
+    	var wid= data.wid;
+    	session(req, res, () => {
+	        console.log(req.session);
+	        id= req.session.passport.user;
+    	});
+    	socket.join(id);
+		new User({
+					type: "worker",
+					username: wname,
+					wid: wid
+				}).save().then(function(new_user){
+					console.log("new user is" + new_user);
+					socket.emit('workeradded', new_user);
+				});
+	});
+	socket.on('win', function(data) {
+		var wname= data.wname;
+    	var wid= data.wid;
+    	var date= data.date;
+    	session(req, res, () => {
+	        console.log(req.session);
+	        id= req.session.passport.user;
+    	});
+    	socket.join(id);
+    	User.updateOne({_id: wid},{$push : {login: date}}, {$update : {lastlogin: date}}, function(err,res){
+			if (err)  console.log(err);
+		    else socket.emit('wined', {wid: wid, wname: wname, date: date});
+		});
+		
+	});
+	socket.on('wout', function(data) {
+		var wname= data.wname;
+    	var wid= data.wid;
+    	var date= data.date;
+    	session(req, res, () => {
+	        console.log(req.session);
+	        id= req.session.passport.user;
+    	});
+    	socket.join(id);
+		User.updateOne({_id: wid},{$push : {logout: date}}, {$update : {lastlogout: date}}, function(err,res){
+			if (err)  console.log(err);
+		    else socket.emit('wouted', {wid: wid, wname: wname, date: date});
+		});
 	});
 	socket.on('startrate', function(data) {
 		var lecid= data.lecture_id;

@@ -42,6 +42,31 @@ router.get("/addworker", adminCheck, passport.authenticate("google-work",{
 router.get("/dashboard", adminCheck, function(req, res){
 	res.render("dashboard", {username: "admin"})
 })
+
+router.get("/attendance", adminCheck, function(req, res){
+	User.find({},function(err,data){
+			if(err)
+				res.send("Error");
+			else{
+				res.render("attendance", {username: "admin", data: data});
+			}
+	});
+})
+
+router.get("/monthly", adminCheck, function(req, res){
+	User.find({},function(err,data){
+			if(err)
+				res.send("Error");
+			else{
+				res.render("monthly", {username: "admin", data: data});
+			}
+	});
+})
+
+router.get("/addworkers", adminCheck, function(req, res){
+	res.render("addworker", {username: "admin"})
+})
+
 router.get("/allusers", adminCheck, function(req,res){
 	User.find({},function(err,data){
 			if(err)

@@ -58,6 +58,8 @@
               <li><b>Item Quantity: </b><span><%= order.orderqty%></span></li>
               <li><b>Order Status: </b><span><%= order.orderstatus%></span></li>
               <li><b>Order Cost: </b>Rs.<span><%= order.ordercost%></span></li>
+              <li><b>Order Image URL: </b><span><a href="<%= order.imageurl%>"><%= order.imageurl%></a></span></li>
+              <img id="orderimage" src="<%=order.imageurl%>"/>
             </ul>
             <h3 class="center-align">Order Timeline</h3>
             <div class="timeline">

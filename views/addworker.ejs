@@ -1,0 +1,65 @@
+  <!DOCTYPE html>
+  <!-- ABOUT -->
+  <html lang="en">
+    <head>
+      <link rel="manifest" href="manifest.json">
+      <link rel="icon" href="" type="image/x-icon">    
+      <link rel="shortcut icon" href="" type="image/x-icon">
+      <meta name="description" content="Bits Workshop Order System"/>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="../materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="../addworker-style.css"/>
+      <meta name="theme-color" content="black">
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <script type="text/javascript" src="../min.js"></script>
+      <title>Connect</title>
+    </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="../jquery214.js"></script>
+      <script type="text/javascript" src="../materialize.min.js"></script>
+      <script type="text/javascript" src="../addworker-action.js"></script>
+      <!-- NAVIGATION -->
+      <% include partials/downAdmL1.ejs %>
+      <!-- EIGHTY FOUR -->
+      <div class="eightyfour grey lighten-2">
+        <div id="neworder" class="eightyfourin">
+          <div class="row formrow">
+            <form class="col s12 form white">
+              <div class="row">
+                <div class="col s12">
+                  <h3 style="text-align: center;">Enter Worker Details</h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="wname" type="text" class="validate valid" data-length="50">
+                  <label for="wname">Enter Worker Name</label>
+                </div>
+                <div class="row">
+                <div class="input-field col s12 orderdiv">
+                  <a class="waves-effect waves-light btn btn-place grey darken-4" onclick="addworker();"><i src=""></i>Add Worker</a>
+                </div>
+              </div> 
+              </div>  
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- MODAL -->
+      <div class="modal grey lighten-3">
+          <div class="modal-content grey darken-3 white-text">
+            <h4 style="text-align: center;">Worker Added</h4>
+          </div>
+          <p>Worker Id :   <b><span id="worker-id"></span></b></p>
+          <p>Worker Name :   <b><span id="worker-name"></span></b></p>
+          <p><a href="./addworkers">Click here</a> to add new worker.</p>
+        </div>
+      <!-- FOOTER -->
+      <% include partials/footer.ejs %>
+    </body>
+  </html>

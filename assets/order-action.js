@@ -49,7 +49,9 @@ socket.on("rejectedorder",function(data){
 
 function addman(ele){
 
-  $(ele).parent().after('<div class="input-field row grey-text text-darken-4 white worker"><select class="col s6 selectworker"></select><span class="col s2">From</span><input type="text" class="datepicker col s5 validate" placeholder="Date [From]"><input type="text" class="timepicker col s5 validate" placeholder="Time [From]"><span class="col s2">To</span><input type="text" class="datepicker col s5 validate" placeholder="Date [To]"><input type="text" class="timepicker col s5 validate" placeholder="Time [To]"><div class="input-field col s12"><textarea id="job" class="materialize-textarea"></textarea><label for="job">Job Description</label></div><div class="input-field col s12"><textarea id="req" class="materialize-textarea"></textarea><label for="req">Inputs</label></div><a class="waves-effect waves-light btn grey darken-4 col s6 offset-s3" onclick="addman(this)"><i src=""></i>Add Worker</a></div>');
+  $(ele).parent().parent().append('<div class="input-field row grey-text text-darken-4 white worker"><select class="col s6 selectworker"></select><span class="col s2">From</span><input type="text" class="datepicker col s5 validate" placeholder="Date [From]"><input type="text" class="timepicker col s5 validate" placeholder="Time [From]"><span class="col s2">To</span><input type="text" class="datepicker col s5 validate" placeholder="Date [To]"><input type="text" class="timepicker col s5 validate" placeholder="Time [To]"><div class="input-field col s12"><textarea id="job" class="materialize-textarea"></textarea><label for="job">Job Description</label></div><div class="input-field col s12"><textarea id="req" class="materialize-textarea"></textarea><label for="req">Inputs</label></div><a class="waves-effect waves-light btn grey darken-4 col s6 offset-s3" onclick="addman(this)"><i src=""></i>Add Worker</a></div>');
+  $('select').formSelect();
+  //$(ele).parent().parent().append($(ele).parent());
   i=0;
   x= document.getElementsByClassName("selectworker")[0].innerHTML;
   while(document.getElementsByClassName("selectworker")[i]){

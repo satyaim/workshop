@@ -24,32 +24,7 @@
       <script type="text/javascript" src="../../../materialize.min.js"></script>
       <script type="text/javascript" src="../../../order-action.js"></script>
       <!-- NAVIGATION -->
-      <ul id="dropdown2" class="dropdown-content grey lighten-2">
-        <li><a href="../../" class="grey-text text-darken-4">Logout</a></li>
-      </ul>
-      <nav class="grey darken-3">
-        <div class="nav-wrapper">
-          <a href="#!" class="brand-logo"><img src="../logo.png" id="logo"></a>
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="../..addworker" class="grey-text text-lighten-2">Add Worker</a></li>
-            <li><a href="../../allusers">Add Order</a></li>
-            <li><a href="../../allusers">View Users</a></li>
-            <li><a href="../../allorders">View Orders</a></li>
-            <li><a href="../../allworkers">View Workers</a></li>
-            <!-- Dropdown Trigger -->
-            <li><a class="dropdown-trigger" href="#!" data-target="dropdown2"><%= username%><i class="material-icons right">arrow_drop_down</i></a></li>
-          </ul>
-        </div>
-      </nav>
-
-      <ul class="sidenav grey darken-4" id="mobile-demo">
-        <li><a href="../../addorder" class="grey-text text-lighten-2">Add Order</a></li>
-        <li><a href="../../allusers" class="grey-text text-lighten-2">View Users</a></li>
-        <li><a href="../../allorders" class="grey-text text-lighten-2">View Orders</a></li>
-        <li><a href="../../allworkers" class="grey-text text-lighten-2">View Workers</a></li>
-        <li><a href="../../" class="grey-text text-lighten-2">Logout</a></li>
-      </ul>
+      <% include partials/downAdmL3.ejs %>
       <!-- EIGHTY FOUR -->
       <div class="eightyfour grey lighten-2">
         <div id="myorders" class="eightyfourin">
@@ -63,6 +38,8 @@
               <li><b>Item Quantity: </b><span><%= order.orderqty%></span></li>
               <li><b>Order Status: </b><span><b><%= order.orderstatus%></b></span></li>
               <li><b>Order Cost: </b>Rs.<span><%= order.ordercost%></span></li>
+              <li><b>Order Image URL: </b><span><a href="<%= order.imageurl%>"><%= order.imageurl%></a></span></li>
+              <img id="orderimage" src="<%=order.imageurl%>"/>
             </ul>
 
             <h3 class="center-align">Admin Actions</h3>
