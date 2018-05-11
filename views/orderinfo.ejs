@@ -200,33 +200,17 @@
                   </div>
                   <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
                 </div>
-                <div class="timeline-event">
-                  <div class="card timeline-content">
-                    <div class="card-content">
-                      <span class="card-title activator grey-text text-darken-4">Shop 2</span>
-                      <p>Expected Time: 11:00am-1:00pm</p>
+                <% for(var i= order.orderinfo.length-1 ; i >= 0; i--) { %>
+                  <div class="timeline-event">
+                    <div class="card timeline-content">
+                      <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4"><%= order.orderinfo[i].shop %></span>
+                        <p><span class="fromtime"><%=  order.orderinfo[i].fromtime %></span>, <span class="fromdate"><%= order.orderinfo[i].fromdate %></span> - <span class="totime"><%= order.orderinfo[i].totime %></span>, <span class="todate"><%= order.orderinfo[i].todate %></span></p>
+                      </div>
                     </div>
+                    <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
                   </div>
-                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
-                </div>
-                <div class="timeline-event">
-                  <div class="card timeline-content">
-                    <div class="card-content">
-                      <span class="card-title activator grey-text text-darken-4">Shop 3</span>
-                      <p>Content</p>
-                    </div>
-                  </div>
-                  <div class="timeline-badge grey white-text"><i class="material-icons">more_horiz</i></div>
-                </div>
-                <div class="timeline-event">
-                  <div class="card timeline-content">
-                    <div class="card-content">
-                      <span class="card-title activator grey-text text-darken-4">Shop 1</span>
-                      <p>Completed</p>
-                    </div>
-                  </div>
-                  <div class="timeline-badge green white-text"><i class="material-icons">done</i></div>
-                </div>
+                <% } %>
                 <div class="timeline-event">
                   <div class="card timeline-content">
                     <div class="card-content">
