@@ -39,7 +39,7 @@
             </thead>
 
             <tbody>
-              <% for(var i=0; i < data.length; i++) { if(data[i].type=="worker"){ lastlogin= new Date(data[i].login[data[i].login.length-1]; lastlogout= new Date(data[i].logout[data[i].logout.length-1]); %>
+              <% for(var i=0; i < data.length; i++) { if(data[i].type=="worker"){ lastlogin= new Date(data[i].login[data[i].login.length-1]); lastlogout= new Date(data[i].logout[data[i].logout.length-1]); %>
                 <tr>
                   <td><%= data[i].username%></td>
                   <td><%= data[i].wid %></td>
