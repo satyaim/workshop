@@ -4,3 +4,22 @@
         BITS WORKSHOP Online Portal
     </div>
 </footer>
+<script>
+var dev_count=0;
+function developer(){
+  if(dev_count%2==0)
+    $('.developer-ttarget').tapTarget('open');
+  else
+    $('.developer-ttarget').tapTarget('close');
+  dev_count++;
+}
+</script>
+<!-- DEVELOPER -->
+    <a id="developer" class="waves-effect waves-light btn btn-floating cyan" onclick="developer();" style="position: fixed; bottom: 1vh; right: 4vw; z-index: 100000;"><i class="material-icons">polymer</i></a>
+<!-- Tap Target Structure -->
+    <div class="tap-target developer-ttarget cyan black-text" data-activates="developer">
+    <div class="tap-target-content">
+        <h5>Developed By: </h5>
+        <p>Satyavrat Sharma <br> 2016B4A70322P</p>
+    </div>
+</div>
