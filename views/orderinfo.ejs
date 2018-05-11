@@ -53,7 +53,8 @@
           <div class="orderinfo white">
             <h3 class="center-align">Order Details</h3>
             <ul>
-              <li><b>Order Id: </b><span><%= order.orderid%></span></li>
+              <li><b>Customer Id: </b><span id="userid"><%= order.orderuserid%></span></li>
+              <li><b>Order Id: </b><span id="orderid"><%= order.orderid%></span></li>
               <li><b>Item Name: </b><span><%= order.ordername%></span></li>
               <li><b>Item Quantity: </b><span><%= order.orderqty%></span></li>
               <li><b>Order Status: </b><span><%= order.orderstatus%></span></li>
