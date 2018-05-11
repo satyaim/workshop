@@ -42,7 +42,7 @@
             </thead>
 
             <tbody>
-              <% x=data.login.length; y=data.logout.length; for(var i=((x>y)?x-1:y-1); i>=0; i--){ logini= data.login[i]; logouti= data.logout[i]; logini.setHours(logini.getHours() + 5); logini.setMinutes(logini.getMinutes() + 30); logouti.setHours(logouti.getHours() + 5); logouti.setMinutes(logouti.getMinutes() + 30);%>
+              <% x=data.login.length; y=data.logout.length; for(var i=((x>y)?x-1:y-1); i>=0; i--){ logini= new Date(data.login[i]); logouti= new Date(data.logout[i]); logini.setHours(logini.getHours() + 5); logini.setMinutes(logini.getMinutes() + 30); logouti.setHours(logouti.getHours() + 5); logouti.setMinutes(logouti.getMinutes() + 30);%>
               <tr>
                   <td><%= new Date(logini).toLocaleDateString('en-GB') %></td>
                   <td><%= new Date(logini).toLocaleTimeString('en-GB') %></td>
