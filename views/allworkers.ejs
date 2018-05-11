@@ -31,7 +31,7 @@
             <thead>
               <tr>
                   <th>User Name</th>
-                  <th>User Id</th>
+                  <th>Worker Id</th>
                   <th>Last Login</th>
                   <th>Last Logout</th>
                   <th>See Details</th>
@@ -39,12 +39,12 @@
             </thead>
 
             <tbody>
-              <% for(var i=0; i < data.length; i++) { if(data[i].type=="worker"){ %>
+              <% for(var i=0; i < data.length; i++) { if(data[i].type=="worker"){ lastlogin= new Date(data[i].login[data[i].login.length-1]; lastlogout= new Date(data[i].logout[data[i].logout.length-1]); %>
                 <tr>
                   <td><%= data[i].username%></td>
-                  <td><%= data[i]._id %></td>
-                  <td><% if(data[i].login[data[i].login.length-1]){ %><%= new Date(data[i].login[data[i].login.length-1]).toLocaleDateString('en-GB') %> <%= new Date(data[i].login[data[i].login.length-1]).toLocaleTimeString('en-GB') %><% } %></td>
-                  <td><% if(data[i].logout[data[i].logout.length-1]){ %><%= new Date(data[i].logout[data[i].logout.length-1]).toLocaleDateString('en-GB') %> <%= new Date(data[i].logout[data[i].logout.length-1]).toLocaleTimeString('en-GB') %><% } %></td>
+                  <td><%= data[i].wid %></td>
+                  <td><% if(lastlogin){ lastlogin.setHours(lastlogin.getHours() + 5); lastlogin.setMinutes(lastlogin.getMinutes() + 30); %><%= new Date(lastlogin).toLocaleDateString('en-GB') %> <%= new Date(lastlogin).toLocaleTimeString('en-GB') %><% } %></td>
+                  <td><% if(lastlogout){ lastlogout.setHours(lastlogout.getHours() + 5); lastlogout.setMinutes(lastlogout.getMinutes() + 30); %><%= new Date(lastlogout).toLocaleDateString('en-GB') %> <%= new Date(lastlogout).toLocaleTimeString('en-GB') %><% } %></td>
                   <td><a href="./allworkers/<%= data[i]._id %>">Click Here</a></td>
                  </tr>
               <% }} %>
