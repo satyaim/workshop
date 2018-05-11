@@ -1,6 +1,7 @@
 //neworder-action.js
 $(document).ready(function(){
 	console.log("here");
+	document.getElementById("neworderli").style.borderBottom="2px solid #DFDFDF";
 	$(".dropdown-trigger").dropdown();
 	$(".sidenav").sidenav();
 	$('input#iname, textarea#iabout, input#cusphone').characterCounter();
