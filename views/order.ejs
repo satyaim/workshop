@@ -208,13 +208,13 @@
                       <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4"><%= order.orderinfo[i].shop %></span>
                         <p>
-                          <span class="fromtime"><%=  order.orderinfo[i].fromtime %></span>, <span class="fromdate"><%= order.orderinfo[i].fromdate %></span> - <span class="totime"><%= order.orderinfo[i].totime %></span>, <span class="todate"><%= order.orderinfo[i].todate %></span>
+                          <b>Time:</b> <span class="fromtime"><%=  order.orderinfo[i].fromtime %></span>, <span class="fromdate"><%= order.orderinfo[i].fromdate %></span> - <span class="totime"><%= order.orderinfo[i].totime %></span>, <span class="todate"><%= order.orderinfo[i].todate %></span>
                           <br>
-                          <span> Description: <%= order.orderinfo[i].description %></span>
+                          <span> <b>Description:</b> <%= order.orderinfo[i].description %></span>
                           <br>
-                          <span> Information: <%= order.orderinfo[i].inputs %></span>
+                          <span> <b>Information:</b> <%= order.orderinfo[i].inputs %></span>
                           <br>
-                          <span> Worker: <%= order.orderinfo[i].worker %></span>
+                          <span> <b>Worker:</b> <%= order.orderinfo[i].worker %></span>
                         </p>
                       </div>
                     </div>
