@@ -265,6 +265,33 @@ io.on('connection', function(socket) {
 		    else socket.emit('wouted', {wid: wid, wname: wname, date: date});
 		});
 	});
+	socket.on('completed', function(data){
+		orderid= data.orderid;
+		userid= data.userid;
+		User.findOne({_id: userid, orderids: orderid},function(err,result){
+			if(err)
+				console.log(err);
+			else{
+				console.log(result);
+				index= result.orderids.indexOf(orderid);
+				infoindex= 0;
+				console.log(index);
+				var setModifier = { $set: {} };
+			    setModifier.$set['orders.' + index + '.orderstatus'] = 'completed';
+				User.updateOne({_id: userid, "orders.orderid": orderid}, setModifier, function(err,result){
+				    if(err) 
+				    	socket.emit('completedorder', {
+				    		yn: 'no'
+				    	});
+				    else
+				    	socket.emit('completedorder', {
+				    		yn: 'yes'
+				    	});
+				});
+			}
+		});
+	});
+	
 	socket.on('startrate', function(data) {
 		var lecid= data.lecture_id;
     	var lecname= data.lecture_name;

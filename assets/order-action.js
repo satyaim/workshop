@@ -211,5 +211,20 @@ function isCompleted(){
     document.getElementsByClassName("completed")[0].getElementsByClassName("timeline-badge")[0].classList.remove("grey");
     document.getElementsByClassName("completed")[0].getElementsByClassName("timeline-badge")[0].classList.add("green");
     document.getElementsByClassName("completed")[0].getElementsByClassName("material-icons")[0].innerHTML="done_all";
+    tellCompleted();
   }
 }
+
+function tellCompleted(){
+  userid=document.getElementById("userid").innerHTML;
+  orderid=document.getElementById("orderid").innerHTML;
+  socket.emit("completed",{
+    userid: userid,
+    orderid: orderid,
+  });
+}
+
+socket.on("completedorder",function(data){
+  //console.log(data);  //orderplaced
+  M.toast({html: 'Order Completed!'});
+});
