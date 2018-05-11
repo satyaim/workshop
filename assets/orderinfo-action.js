@@ -36,8 +36,6 @@ function isCompleted(){
     else
       completed=0;
   }
-  console.log(countshops)
-  console.log(completed)
   if(completed==1 && document.getElementsByClassName("completed")[0]){
     document.getElementsByClassName("completed")[0].getElementsByClassName("timeline-badge")[0].classList.remove("grey");
     document.getElementsByClassName("completed")[0].getElementsByClassName("timeline-badge")[0].classList.add("green");
