@@ -48,7 +48,7 @@
                     <td><%= data[i].orders[j].orderid %></td>
                     <td><%= data[i].username %></td>
                     <td><%= data[i].orders[j].orderqty %></td>
-                    <td><%= data[i].orders[j].orderstatus %></td>
+                    <td><% status=data[i].orders[j].orderstatus; if(status=="running"){ %>running/completed <% } else{ %><%= status %><% } %></td>
                     <td><a href="./order/<%= data[i]._id %>/<%= data[i].orders[j].orderid %>">Click Here</a></td>
                   </tr>
                 <% } %>
