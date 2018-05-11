@@ -6,6 +6,10 @@ $(document).ready(function(){
   	isCompleted();
 });
 
+//var url= "http://127.0.0.1:3000/";
+var url="https://bits-workshop.herokuapp.com/";
+var socket= io.connect(url);
+
 function countshops(){
   i=0;
   while(document.getElementsByClassName("shoptime")[i]){
