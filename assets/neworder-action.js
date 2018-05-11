@@ -1,6 +1,6 @@
 //neworder-action.js
 $(document).ready(function(){
-	console.log("here");
+	console.log("Developed By: Satyavrat Sharma || 2016B4A70322P");
 	document.getElementById("neworderli").style.borderBottom="2px solid #DFDFDF";
 	$(".dropdown-trigger").dropdown();
 	$(".sidenav").sidenav();
