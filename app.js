@@ -15,8 +15,12 @@ const passportSetup= require("./config/passport-setup");
 const socket= require("socket.io");
 //Port
 const port = process.env.PORT || 3000;
+//Obtain Compression
+const compression = require('compression');
 //Express App
 const app= express();
+//Use Compression
+app.use(compression());
 //Obtain mongoose
 const mongoose= require("mongoose");
 //Obtain keys
