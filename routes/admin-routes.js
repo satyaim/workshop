@@ -172,7 +172,7 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        	sheet.getRow(diff+2).getCell('outtime').value= new Date(data.logout[outlength]).toLocaleTimeString('en-GB');
 		        	outlength--;
 		        }
-		     
+		     	sheet.addRow({date: today.toLocaleDateString('en-GB')})
 				//workbook.commit();
 				var fileName = data.username+'.xlsx';
 				res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
