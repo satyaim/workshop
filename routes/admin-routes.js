@@ -163,7 +163,7 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        var inlength = data.login.length;
 		        inlength--;
 		        while ( ((diff=Math.ceil(Math.abs((today.getTime()-new Date(data.login[inlength]).getTime()))/(1000 * 3600 * 24))) < 14) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
-		        	sheet.getRow(diff+2).getCell('intime').value= new Date(data.login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Indian/Christmas' });
+		        	sheet.getRow(diff+2).getCell('intime').value= new Date(data.login[inlength]).toLocaleTimeString('en-US', { timeZone: 'Indian/Christmas' });
 		        	inlength--;
 		        }
 		        var outlength = data.logout.length;
