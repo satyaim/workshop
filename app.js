@@ -16,11 +16,11 @@ const socket= require("socket.io");
 //Port
 const port = process.env.PORT || 3000;
 //Obtain Compression
-//const compression = require('compression');
+const compression = require('compression');
 //Express App
-//const app= express();
+const app= express();
 //Use Compression
-//app.use(compression());
+app.use(compression());
 //Obtain mongoose
 const mongoose= require("mongoose");
 //Obtain keys

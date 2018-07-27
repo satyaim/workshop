@@ -22,7 +22,7 @@
       <!--Import jQuery before materialize.js-->
       <script defer type="text/javascript" src="/jquery214.js"></script>
       <script defer type="text/javascript" src="/materialize.min.js"></script>
-      <script defer type="text/javascript" src="/dashboard-action.js"></script>
+      <script defer type="text/javascript" src="/workerinfo-action.js"></script>
       <!-- NAVIGATION -->
       <% include partials/downAdmL2.ejs %>
       <!-- EIGHTY FOUR -->
@@ -30,8 +30,8 @@
         <table class="centered table white">
             <thead>
               <tr>
-                  <th>Last Login</th>
-                  <th>Last Logout</th>
+                  <th>Last IN</th>
+                  <th>Last OUT</th>
               </tr>
               <tr>
                   <th>Date</th>
@@ -55,10 +55,24 @@
               <tr>
                   <th>Worker Name: <%= data.username %></th>
                   <th>Worker Id: <%= data.wid %></th>
+                  <th style="cursor: pointer;" onclick="modalopen();">Download Attendance <i class="material-icons">file_download</i></th>
               </tr>
             </tfoot>
           </table>
       </div>
+      <!-- MODAL -->
+      <div class="modal modaldwnl grey lighten-3">
+          <div class="modal-content grey darken-3 white-text">
+            <h4 style="text-align: center;">Download Attendance Excel Sheet</h4>
+          </div>
+          <p>Worker Name :   <b><span id="worker-name"><%= data.username %></span></b></p>
+          <p>Worker Id :   <b><span id="worker-id"><%= data.wid %></span></b></p>
+          <p>Time Span :   <b><span id="placed-qty"></span></b></p>
+          <div class="modal-footer grey darken-3 white-text foot">
+            <btn class="modal-action waves-effect waves-blue btn-flat grey lighten-3"><a href="./<%= data.id %>/2/download">Download</a></btn>
+            <btn class="modal-action waves-effect waves-blue btn-flat grey lighten-3" onclick="modalclose();">Close</btn>
+          </div>
+        </div>
       <!-- FOOTER -->
       <% include partials/footer.ejs %>
     </body>

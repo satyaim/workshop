@@ -16,6 +16,7 @@
     "compression": "^1.7.2",
     "cookie-session": "^2.0.0-beta.3",
     "ejs": "^2.5.8",
+    "exceljs": "^1.5.1",
     "express": "^4.16.3",
     "materialize-css": "^0.100.2",
     "moment": "^2.22.1",

@@ -2,6 +2,7 @@
 const router= require("express").Router();
 const User= require("../models/user-model");
 const passport = require('passport')
+const Excel = require('exceljs');
 
 router.get("/logout", function(req,res){
 	//res.send("Will log you out ;)");
@@ -133,6 +134,52 @@ router.get("/allworkers/:userid",  adminCheck, function(req,res){
 				console.log("data")
 				console.log(data)
 				res.render("workerinfo", {username: "admin", data: data});
+			}
+	});
+});
+router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res){
+	userid=req.params.userid;
+	weeks=req.params.weeks;
+	User.findOne({_id: userid, type: "worker"},function(err,data){
+			if(err)
+				res.send("Error");
+			else{
+				console.log("data")
+				console.log(data)
+				var workbook = new Excel.Workbook();
+				var sheet = workbook.addWorksheet('Attendance');
+				sheet.columns = [
+		            { header: 'Date', key: 'date', width: 15 },
+		            { header: 'In Time', key: 'intime', width: 30 },
+		            { header: 'Out Time', key: 'outtime', width: 30 }
+		        ];
+		        today = new Date();
+		        for (i=0; i<14; i++){
+		        	sheet.addRow({date: today.toLocaleDateString('en-GB')})
+		        	today.setDate(today.getDate()-1)	
+		        }
+		        today = new Date();
+		        // 0 corresponds to today.getDay(), rest : -> -1, x -> today.getDay() - thatDay
+		        var inlength = data.login.length;
+		        inlength--;
+		        while ( ((diff=Math.ceil(Math.abs((today.getTime()-new Date(data.login[inlength]).getTime()))/(1000 * 3600 * 24))) < 14) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
+		        	sheet.getRow(diff+2).getCell('intime').value= new Date(data.login[inlength]).toLocaleTimeString('en-GB');
+		        	inlength--;
+		        }
+		        var outlength = data.logout.length;
+		        outlength--;
+		        while ( ((diff=Math.ceil(Math.abs((today.getTime()-new Date(data.logout[outlength]).getTime()))/(1000 * 3600 * 24))) < 14) && (outlength > -1) && (today - new Date(data.logout[outlength])) >= 0){
+		        	sheet.getRow(diff+2).getCell('outtime').value= new Date(data.logout[outlength]).toLocaleTimeString('en-GB');
+		        	outlength--;
+		        }
+		     
+				//workbook.commit();
+				var fileName = data.username+'.xlsx';
+				res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			    res.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+			    workbook.xlsx.write(res).then(function(){
+			        res.end();
+			    });
 			}
 	});
 });

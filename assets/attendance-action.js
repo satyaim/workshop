@@ -6,7 +6,8 @@ $(document).ready(function(){
 });
 
 //var url= "http://127.0.0.1:3000/";
-var url="https://bits-workshop.herokuapp.com/";
+//var url="https://bits-workshop.herokuapp.com/";
+var url= window.location.origin;
 var socket= io.connect(url);
 
 function win(id,name){
