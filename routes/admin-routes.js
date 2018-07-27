@@ -153,23 +153,23 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		            { header: 'In Time', key: 'intime', width: 30 },
 		            { header: 'Out Time', key: 'outtime', width: 30 }
 		        ];
-		        today = new Date();
+		        today = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 		        for (i=0; i<14; i++){
 		        	sheet.addRow({date: today.toLocaleDateString('en-GB')})
 		        	today.setDate(today.getDate()-1)	
 		        }
-		        today = new Date();
+		        today = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 		        // 0 corresponds to today.getDay(), rest : -> -1, x -> today.getDay() - thatDay
 		        var inlength = data.login.length;
 		        inlength--;
-		        while ( ((diff=Math.ceil(Math.abs((today.getTime()-new Date(data.login[inlength]).getTime()))/(1000 * 3600 * 24))) < 14) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
-		        	sheet.getRow(diff+2).getCell('intime').value= new Date(data.login[inlength]).toLocaleTimeString('en-US', { timeZone: 'Asia/Calcutta' });
+		        while ( ((diff=Math.ceil(Math.abs((today.getTime()-new Date(data.login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' }).getTime()))/(1000 * 3600 * 24))) < 14) && (inlength > -1) && (today - new Date(data.login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' })) >= 0){
+		        	sheet.getRow(diff+1).getCell('intime').value= new Date(data.login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 		        	inlength--;
 		        }
 		        var outlength = data.logout.length;
 		        outlength--;
-		        while ( ((diff=Math.ceil(Math.abs((today.getTime()-new Date(data.logout[outlength]).getTime()))/(1000 * 3600 * 24))) < 14) && (outlength > -1) && (today - new Date(data.logout[outlength])) >= 0){
-		        	sheet.getRow(diff+2).getCell('outtime').value= new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
+		        while ( ((diff=Math.ceil(Math.abs((today.getTime()-new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' }).getTime()))/(1000 * 3600 * 24))) < 14) && (outlength > -1) && (today - new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' })) >= 0){
+		        	sheet.getRow(diff+1).getCell('outtime').value= new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 		        	outlength--;
 		        }
 		     	
