@@ -163,13 +163,13 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        var inlength = data.login.length;
 		        inlength--;
 		        while ( ((diff=Math.ceil(Math.abs((today.getTime()-new Date(data.login[inlength]).getTime()))/(1000 * 3600 * 24))) < 14) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
-		        	sheet.getRow(diff+2).getCell('intime').value= new Date(data.login[inlength]).toLocaleTimeString('en-US', { timeZone: 'Indian/Christmas' });
+		        	sheet.getRow(diff+2).getCell('intime').value= new Date(data.login[inlength]).toLocaleTimeString('en-US', { timeZone: 'Asia/Calcutta' });
 		        	inlength--;
 		        }
 		        var outlength = data.logout.length;
 		        outlength--;
 		        while ( ((diff=Math.ceil(Math.abs((today.getTime()-new Date(data.logout[outlength]).getTime()))/(1000 * 3600 * 24))) < 14) && (outlength > -1) && (today - new Date(data.logout[outlength])) >= 0){
-		        	sheet.getRow(diff+2).getCell('outtime').value= new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Indian/Christmas' });
+		        	sheet.getRow(diff+2).getCell('outtime').value= new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 		        	outlength--;
 		        }
 		     	
