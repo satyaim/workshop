@@ -157,14 +157,14 @@ router.get("/allworkers/all/:weeks/download",  adminCheck, function(req,res){
 			        inlength--;
 			        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data[i].login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 7*weeks) && (inlength > -1) && (today - new Date(data[i].login[inlength])) >= 0){
 			        	intime = new Date(data[i].login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
-			        	sheetEE.getRow(i+2).getCell('in'+(diff+1)).value= intime;
+			        	sheetEE.getRow(i+2).getCell('in'+(diff)).value= intime;
 			        	inlength--;
 			        }
 			        var outlength = data[i].logout.length;
 			        outlength--;
 			        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data[i].logout[outlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 7*weeks) && (outlength > -1) && (today - new Date(data[i].logout[outlength])) >= 0){
 			        	outtime = new Date(data[i].logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
-			        	sheetEE.getRow(i+2).getCell('out'+(diff+2)).value= outtime;
+			        	sheetEE.getRow(i+2).getCell('out'+(diff)).value= outtime;
 			        	outlength--;
 			        }
 		        }
