@@ -810,6 +810,15 @@
       x=0;
       classes = ["rf", "ls", "lf", "rs"];
       while(document.getElementsByTagName("path")[x]){ document.getElementsByTagName("path")[x].classList.add(classes[getRandomInt(4)]);x++;}
+      spin = ["spin", "antispin"];
+      setInterval(function(){
+        random = getRandomInt(154)
+        spinanim = spin[getRandomInt(2)]
+        if(document.getElementsByTagName("path")[random].style.animationName == "spinsize" || document.getElementsByTagName("path")[random].style.animationName == "antispinsize")
+          document.getElementsByTagName("path")[random].style.animationName=spinanim;
+        else
+          document.getElementsByTagName("path")[random].style.animationName=spinanim+"size";
+      }, 500);
     ]]></script><style
    id="style4644"><![CDATA[
         @-webkit-keyframes spin { 

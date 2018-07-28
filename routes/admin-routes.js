@@ -148,7 +148,7 @@ router.get("/allworkers/all/:weeks/download",  adminCheck, function(req,res){
 		        sheetEE.columns = columns;
 		        today = new Date();
 		        today.setHours(today.getHours() + 5); today.setMinutes(today.getMinutes() + 30);
-		        todaytime = new Date(today.toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime();
+		        todaytime = new Date(today.toLocaleDateString('en-GB', { timeZone: 'Asia/Calcutta' })).getTime();
 		        for (i=0; i< data.length; i++){
 		        	sheetEE.addRow({name: data[i].username, id: data[i].wid})
 		        }
