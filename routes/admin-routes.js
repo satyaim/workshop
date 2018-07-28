@@ -117,11 +117,64 @@ router.get("/order/:userid/:orderid", adminCheck, function(req,res){
 	});
 });
 router.get("/allworkers",  adminCheck, function(req,res){
-	User.find({},function(err,data){
+	User.find({type: "worker"},function(err,data){
 			if(err)
 				res.send("Error");
 			else{
 				res.render("allworkers", {username: "admin", data: data});
+			}
+	});
+});
+router.get("/allworkers/all/:weeks/download",  adminCheck, function(req,res){
+	weeks=req.params.weeks;
+	User.find({type: "worker"},function(err,data){
+			if(err || weeks>4)
+				res.send("Error");
+			else{
+				console.log("data")
+				console.log(data)
+				var workbook = new Excel.Workbook();
+				var sheetEE = workbook.addWorksheet('Entry Exit', {properties: {hidden: false}});
+		        var columns = [];
+		        today = new Date();
+		        today.setHours(today.getHours() + 5); today.setMinutes(today.getMinutes() + 30);
+		        columns[0] = { header: 'Name', key: 'name', width: 12}
+		        columns[1] = { header: 'Id', key: 'id', width: 6}
+		        for (i=0; i< 7*weeks; i++){
+		        	columns[2*i+2] = { header: 'In '+today.toLocaleDateString('en-GB'), key: 'in'+i, width: 14 };
+		        	columns[2*i+3] = { header: 'Out '+today.toLocaleDateString('en-GB'), key: 'out'+i, width: 14 };
+		        	today.setDate(today.getDate()-1)
+		        }
+		        sheetEE.columns = columns;
+		        today = new Date();
+		        today.setHours(today.getHours() + 5); today.setMinutes(today.getMinutes() + 30);
+		        todaytime = new Date(today.toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime();
+		        for (i=0; i< data.length; i++){
+		        	sheetEE.addRow({name: data[i].username, id: data[i].wid})
+		        }
+		        for (i=0; i< data.length; i++){
+		        	var inlength = data[i].login.length;
+			        inlength--;
+			        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data[i].login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 7*weeks) && (inlength > -1) && (today - new Date(data[i].login[inlength])) >= 0){
+			        	intime = new Date(data[i].login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
+			        	sheetEE.getRow(i+2).getCell('in'+diff).value= intime;
+			        	inlength--;
+			        }
+			        var outlength = data[i].logout.length;
+			        outlength--;
+			        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data[i].logout[outlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 7*weeks) && (outlength > -1) && (today - new Date(data[i].logout[outlength])) >= 0){
+			        	outtime = new Date(data[i].logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
+			        	sheetEE.getRow(i+2).getCell('out'+diff).value= outtime;
+			        	outlength--;
+			        }
+		        }
+		        
+				var fileName = 'AllAttendancex.xlsx';
+				res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			    res.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+			    workbook.xlsx.write(res).then(function(){
+			        res.end();
+			    });
 			}
 	});
 });
@@ -141,7 +194,7 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 	userid=req.params.userid;
 	weeks=req.params.weeks;
 	User.findOne({_id: userid, type: "worker"},function(err,data){
-			if(err)
+			if(err || weeks>4)
 				res.send("Error");
 			else{
 				console.log("data")
@@ -161,7 +214,7 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        ];
 		        today = new Date();
 		        today.setHours(today.getHours() + 5); today.setMinutes(today.getMinutes() + 30);
-		        for (i=0; i<14; i++){
+		        for (i=0; i< 7*weeks; i++){
 		        	sheetAll.addRow({date: today.toLocaleDateString('en-GB')})
 		        	sheetDay.addRow({date: today.toLocaleDateString('en-GB')})
 		        	today.setDate(today.getDate()-1)	
@@ -176,7 +229,7 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        //console.log(today.toLocaleTimeString('en-US'));
 
 		        //console.log(Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US')).getTime()-new Date(new Date(data.login[inlength]).toLocaleDateString('en-US')).getTime()))/(1000 * 3600 * 24)))
-		        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data.login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 14) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
+		        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data.login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 7*weeks) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
 		        	intime = new Date(data.login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 		        	if(sheetAll.getRow(diff+2).getCell('intime').value == null){
 		        		sheetAll.getRow(diff+2).getCell('intime').value= intime;
@@ -190,7 +243,7 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        }
 		        var outlength = data.logout.length;
 		        outlength--;
-		        while ( ((diff=Math.ceil(Math.abs(( todaytime -new Date(new Date(data.logout[outlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 14) && (outlength > -1) && (today - new Date(data.logout[outlength])) >= 0){
+		        while ( ((diff=Math.ceil(Math.abs(( todaytime -new Date(new Date(data.logout[outlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 7*weeks) && (outlength > -1) && (today - new Date(data.logout[outlength])) >= 0){
 		        	outtime = new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 		        	if(sheetAll.getRow(diff+2).getCell('outtime').value == null){
 		        		sheetAll.getRow(diff+2).getCell('outtime').value= outtime;

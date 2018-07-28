@@ -62,17 +62,19 @@
       </div>
       <!-- MODAL -->
       <div class="modal modaldwnl grey lighten-3">
-          <div class="modal-content grey darken-3 white-text">
-            <h4 style="text-align: center;">Download Attendance Excel Sheet</h4>
-          </div>
-          <p>Worker Name :   <b><span id="worker-name"><%= data.username %></span></b></p>
-          <p>Worker Id :   <b><span id="worker-id"><%= data.wid %></span></b></p>
-          <p>Time Span :   <b><span id="placed-qty"></span></b></p>
-          <div class="modal-footer grey darken-3 white-text foot">
-            <btn class="modal-action waves-effect waves-blue btn-flat grey lighten-3"><a href="./<%= data.id %>/2/download">Download</a></btn>
-            <btn class="modal-action waves-effect waves-blue btn-flat grey lighten-3" onclick="modalclose();">Close</btn>
-          </div>
+        <div class="modal-content grey darken-3 white-text">
+          <h4 style="text-align: center;">Download Attendance Excel Sheet</h4>
         </div>
+        <p>Worker Name :   <b><span id="worker-name"><%= data.username %></span></b></p>
+        <p>Worker Id :   <b><span id="worker-id"><%= data.wid %></span></b></p>
+        <div class="modal-footer grey darken-3 white-text foot">
+          <btn class="modal-action waves-effect waves-blue btn-flat grey lighten-3"><a href="./<%= data.id %>/1/download">1 week</a></btn>
+          <btn class="modal-action waves-effect waves-blue btn-flat grey lighten-3"><a href="./<%= data.id %>/2/download">2 weeks</a></btn>
+          <btn class="modal-action waves-effect waves-blue btn-flat grey lighten-3"><a href="./<%= data.id %>/3/download">3 weeks</a></btn>
+          <btn class="modal-action waves-effect waves-blue btn-flat grey lighten-3"><a href="./<%= data.id %>/4/download">4 weeks</a></btn>
+          <btn class="modal-action waves-effect waves-blue btn-flat grey lighten-3" onclick="modalclose();">Close</btn>
+        </div>
+      </div>
       <!-- FOOTER -->
       <% include partials/footer.ejs %>
     </body>
