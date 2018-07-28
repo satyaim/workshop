@@ -3,4 +3,17 @@
     <div class="footer-copyright">
         BITS WORKSHOP Online Portal
     </div>
+    <a id="developer" style="position: fixed; bottom: 1vh; right: 4vw;" class="btn btn-floating black" onclick="
+  if(M.TapTarget.getInstance($('.developer-ttarget')) && M.TapTarget.getInstance($('.developer-ttarget')).isOpen)
+    $('.developer-ttarget').tapTarget('close');
+  else if(M.TapTarget.getInstance($('.developer-ttarget')) && !M.TapTarget.getInstance($('.developer-ttarget')).isOpen)
+    $('.developer-ttarget').tapTarget('open');
+  else {$('.developer-ttarget').tapTarget(''); $('.developer-ttarget').tapTarget('open')}"><i class="material-icons">polymer</i></a>
+    <div class="tap-target developer-ttarget black white-text" data-target="developer">
+	    <div class="tap-target-content">
+	      <h5>Developed By: </h5>
+	      <p>Satyavrat Sharma, 2016B4A70322P</p>
+	      <p><a href="https://www.github.com/satyaim" target="_blank">github.com/satyaim</a></p>
+	    </div>
+  </div>
 </footer>
