@@ -147,36 +147,58 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 				console.log("data")
 				console.log(data)
 				var workbook = new Excel.Workbook();
-				var sheet = workbook.addWorksheet('Attendance');
-				sheet.columns = [
+				var sheetAll = workbook.addWorksheet('All Times', {properties: {hidden: false}});
+				var sheetDay = workbook.addWorksheet('Entry Exit', {properties: {hidden: false}});
+				sheetAll.columns = [
 		            { header: 'Date', key: 'date', width: 15 },
-		            { header: 'In Time', key: 'intime', width: 30 },
-		            { header: 'Out Time', key: 'outtime', width: 30 }
+		            { header: 'In Time', key: 'intime', width: 60 },
+		            { header: 'Out Time', key: 'outtime', width: 60 }
+		        ];
+		        sheetDay.columns = [
+		            { header: 'Date', key: 'date', width: 15 },
+		            { header: 'In Time', key: 'intime', width: 60 },
+		            { header: 'Out Time', key: 'outtime', width: 60 }
 		        ];
 		        today = new Date();
 		        today.setHours(today.getHours() + 5); today.setMinutes(today.getMinutes() + 30);
 		        for (i=0; i<14; i++){
-		        	sheet.addRow({date: today.toLocaleDateString('en-GB')})
+		        	sheetAll.addRow({date: today.toLocaleDateString('en-GB')})
+		        	sheetDay.addRow({date: today.toLocaleDateString('en-GB')})
 		        	today.setDate(today.getDate()-1)	
 		        }
 		        // today collapsed
 		        today = new Date();
 		        today.setHours(today.getHours() + 5); today.setMinutes(today.getMinutes() + 30);
+		        todaytime = new Date(today.toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime();
 		        // 0 corresponds to today.getDay(), rest : -> -1, x -> today.getDay() - thatDay
 		        var inlength = data.login.length;
 		        inlength--;
 		        //console.log(today.toLocaleTimeString('en-US'));
 
 		        //console.log(Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US')).getTime()-new Date(new Date(data.login[inlength]).toLocaleDateString('en-US')).getTime()))/(1000 * 3600 * 24)))
-		        while ( ((diff=Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()-new Date(new Date(data.login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 14) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
-		        	//console.log(diff)
-		        	sheet.getRow(diff+2).getCell('intime').value= new Date(data.login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
+		        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data.login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 14) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
+		        	intime = new Date(data.login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
+		        	if(sheetAll.getRow(diff+2).getCell('intime').value == null){
+		        		sheetAll.getRow(diff+2).getCell('intime').value= intime;
+		        		sheetDay.getRow(diff+2).getCell('intime').value= intime;
+		        	}
+		        	else{
+		        		sheetAll.getRow(diff+2).getCell('intime').value+= (", " + intime);
+		        		sheetDay.getRow(diff+2).getCell('intime').value= intime;
+		        	}
 		        	inlength--;
 		        }
 		        var outlength = data.logout.length;
 		        outlength--;
-		        while ( ((diff=Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()-new Date(new Date(data.logout[outlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 14) && (outlength > -1) && (today - new Date(data.logout[outlength])) >= 0){
-		        	sheet.getRow(diff+2).getCell('outtime').value= new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
+		        while ( ((diff=Math.ceil(Math.abs(( todaytime -new Date(new Date(data.logout[outlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 14) && (outlength > -1) && (today - new Date(data.logout[outlength])) >= 0){
+		        	outtime = new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
+		        	if(sheetAll.getRow(diff+2).getCell('outtime').value == null){
+		        		sheetAll.getRow(diff+2).getCell('outtime').value= outtime;
+		        		sheetDay.getRow(diff+2).getCell('outtime').value= outtime;
+		        	}
+		        	else{
+		        		sheetAll.getRow(diff+2).getCell('outtime').value+=( ", " + outtime);
+		        	}
 		        	outlength--;
 		        }
 		     	
