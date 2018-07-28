@@ -231,13 +231,13 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        //console.log(Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US')).getTime()-new Date(new Date(data.login[inlength]).toLocaleDateString('en-US')).getTime()))/(1000 * 3600 * 24)))
 		        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data.login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) <= 7*weeks) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
 		        	intime = new Date(data.login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
-		        	if(sheetAll.getRow(diff+2).getCell('intime').value == null){
-		        		sheetAll.getRow(diff+2).getCell('intime').value= intime;
-		        		sheetDay.getRow(diff+2).getCell('intime').value= intime;
+		        	if(sheetAll.getRow(diff+1).getCell('intime').value == null){
+		        		sheetAll.getRow(diff+1).getCell('intime').value= intime;
+		        		sheetDay.getRow(diff+1).getCell('intime').value= intime;
 		        	}
 		        	else{
-		        		sheetAll.getRow(diff+2).getCell('intime').value+= (", " + intime);
-		        		sheetDay.getRow(diff+2).getCell('intime').value= intime;
+		        		sheetAll.getRow(diff+1).getCell('intime').value+= (", " + intime);
+		        		sheetDay.getRow(diff+1).getCell('intime').value= intime;
 		        	}
 		        	inlength--;
 		        }
@@ -245,12 +245,12 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        outlength--;
 		        while ( ((diff=Math.ceil(Math.abs(( todaytime -new Date(new Date(data.logout[outlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) <= 7*weeks) && (outlength > -1) && (today - new Date(data.logout[outlength])) >= 0){
 		        	outtime = new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
-		        	if(sheetAll.getRow(diff+2).getCell('outtime').value == null){
-		        		sheetAll.getRow(diff+2).getCell('outtime').value= outtime;
-		        		sheetDay.getRow(diff+2).getCell('outtime').value= outtime;
+		        	if(sheetAll.getRow(diff+1).getCell('outtime').value == null){
+		        		sheetAll.getRow(diff+1).getCell('outtime').value= outtime;
+		        		sheetDay.getRow(diff+1).getCell('outtime').value= outtime;
 		        	}
 		        	else{
-		        		sheetAll.getRow(diff+2).getCell('outtime').value+=( ", " + outtime);
+		        		sheetAll.getRow(diff+1).getCell('outtime').value+=( ", " + outtime);
 		        	}
 		        	outlength--;
 		        }
