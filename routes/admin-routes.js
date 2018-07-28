@@ -165,18 +165,18 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        // 0 corresponds to today.getDay(), rest : -> -1, x -> today.getDay() - thatDay
 		        var inlength = data.login.length;
 		        inlength--;
-		        console.log((new Date(today.toLocaleDateString('en-US'))));
+		        console.log((new Date(today.toLocaleTimeString('en-US'))));
 
 		        console.log(Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US')).getTime()-new Date(new Date(data.login[inlength]).toLocaleDateString('en-US')).getTime()))/(1000 * 3600 * 24)))
 		        while ( ((diff=Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()-new Date(new Date(data.login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 14) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
 		        	console.log(diff)
-		        	sheet.getRow(diff+1).getCell('intime').value= new Date(data.login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
+		        	sheet.getRow(diff+2).getCell('intime').value= new Date(data.login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 		        	inlength--;
 		        }
 		        var outlength = data.logout.length;
 		        outlength--;
 		        while ( ((diff=Math.ceil(Math.abs((today.getTime()-new Date(data.logout[outlength]).getTime()))/(1000 * 3600 * 24))) < 14) && (outlength > -1) && (today - new Date(data.logout[outlength])) >= 0){
-		        	sheet.getRow(diff+1).getCell('outtime').value= new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
+		        	sheet.getRow(diff+2).getCell('outtime').value= new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 		        	outlength--;
 		        }
 		     	
