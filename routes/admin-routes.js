@@ -155,17 +155,21 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        ];
 		        today = new Date();
 		        today.setHours(today.getHours() + 5); today.setMinutes(today.getMinutes() + 30);
-		        thisday = today;
 		        for (i=0; i<14; i++){
 		        	sheet.addRow({date: today.toLocaleDateString('en-GB')})
 		        	today.setDate(today.getDate()-1)	
 		        }
-		        // today collapsed, thisday remains
-		        today = thisday;
+		        // today collapsed
+		        today = new Date();
+		        today.setHours(today.getHours() + 5); today.setMinutes(today.getMinutes() + 30);
 		        // 0 corresponds to today.getDay(), rest : -> -1, x -> today.getDay() - thatDay
 		        var inlength = data.login.length;
 		        inlength--;
-		        while ( ((diff=Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US')).getTime()-new Date(new Date(data.login[inlength]).toLocaleDateString('en-US')).getTime()))/(1000 * 3600 * 24))) < 14) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
+		        console.log((new Date(today.toLocaleDateString('en-US'))));
+
+		        console.log(Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US')).getTime()-new Date(new Date(data.login[inlength]).toLocaleDateString('en-US')).getTime()))/(1000 * 3600 * 24)))
+		        while ( ((diff=Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()-new Date(new Date(data.login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 14) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
+		        	console.log(diff)
 		        	sheet.getRow(diff+1).getCell('intime').value= new Date(data.login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 		        	inlength--;
 		        }
