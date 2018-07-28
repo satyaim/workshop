@@ -148,6 +148,8 @@ router.get("/allworkers/all/:weeks/download",  adminCheck, function(req,res){
 		        sheetEE.columns = columns;
 		        today = new Date();
 		        today.setHours(today.getHours() + 5); today.setMinutes(today.getMinutes() + 30);
+		        console.log("today's date")
+		        console.log(today.toLocaleDateString('en-GB', { timeZone: 'Asia/Calcutta' }))
 		        todaytime = new Date(today.toLocaleDateString('en-GB', { timeZone: 'Asia/Calcutta' })).getTime();
 		        for (i=0; i< data.length; i++){
 		        	sheetEE.addRow({name: data[i].username, id: data[i].wid})
@@ -157,6 +159,9 @@ router.get("/allworkers/all/:weeks/download",  adminCheck, function(req,res){
 			        inlength--;
 			        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data[i].login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) <= 7*weeks) && (inlength > -1) && (today - new Date(data[i].login[inlength])) >= 0){
 			        	intime = new Date(data[i].login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
+			        	console.log("intime")
+			        	console.log(intime)
+			        	console.log(diff)
 			        	sheetEE.getRow(i+2).getCell('in'+(diff-1)).value= intime;
 			        	inlength--;
 			        }
