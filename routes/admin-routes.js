@@ -155,14 +155,14 @@ router.get("/allworkers/all/:weeks/download",  adminCheck, function(req,res){
 		        for (i=0; i< data.length; i++){
 		        	var inlength = data[i].login.length;
 			        inlength--;
-			        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data[i].login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 7*weeks) && (inlength > -1) && (today - new Date(data[i].login[inlength])) >= 0){
+			        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data[i].login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) <= 7*weeks) && (inlength > -1) && (today - new Date(data[i].login[inlength])) >= 0){
 			        	intime = new Date(data[i].login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 			        	sheetEE.getRow(i+2).getCell('in'+(diff-1)).value= intime;
 			        	inlength--;
 			        }
 			        var outlength = data[i].logout.length;
 			        outlength--;
-			        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data[i].logout[outlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 7*weeks) && (outlength > -1) && (today - new Date(data[i].logout[outlength])) >= 0){
+			        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data[i].logout[outlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) <= 7*weeks) && (outlength > -1) && (today - new Date(data[i].logout[outlength])) >= 0){
 			        	outtime = new Date(data[i].logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 			        	sheetEE.getRow(i+2).getCell('out'+(diff-1)).value= outtime;
 			        	outlength--;
@@ -229,7 +229,7 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        //console.log(today.toLocaleTimeString('en-US'));
 
 		        //console.log(Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US')).getTime()-new Date(new Date(data.login[inlength]).toLocaleDateString('en-US')).getTime()))/(1000 * 3600 * 24)))
-		        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data.login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 7*weeks) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
+		        while ( ((diff=Math.ceil(Math.abs((todaytime -new Date(new Date(data.login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) <= 7*weeks) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
 		        	intime = new Date(data.login[inlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 		        	if(sheetAll.getRow(diff+2).getCell('intime').value == null){
 		        		sheetAll.getRow(diff+2).getCell('intime').value= intime;
@@ -243,7 +243,7 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        }
 		        var outlength = data.logout.length;
 		        outlength--;
-		        while ( ((diff=Math.ceil(Math.abs(( todaytime -new Date(new Date(data.logout[outlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 7*weeks) && (outlength > -1) && (today - new Date(data.logout[outlength])) >= 0){
+		        while ( ((diff=Math.ceil(Math.abs(( todaytime -new Date(new Date(data.logout[outlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) <= 7*weeks) && (outlength > -1) && (today - new Date(data.logout[outlength])) >= 0){
 		        	outtime = new Date(data.logout[outlength]).toLocaleTimeString('en-GB', { timeZone: 'Asia/Calcutta' });
 		        	if(sheetAll.getRow(diff+2).getCell('outtime').value == null){
 		        		sheetAll.getRow(diff+2).getCell('outtime').value= outtime;
