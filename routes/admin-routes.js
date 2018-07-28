@@ -165,7 +165,7 @@ router.get("/allworkers/:userid/:weeks/download",  adminCheck, function(req,res)
 		        // 0 corresponds to today.getDay(), rest : -> -1, x -> today.getDay() - thatDay
 		        var inlength = data.login.length;
 		        inlength--;
-		        console.log((new Date(today.toLocaleTimeString('en-US'))));
+		        console.log(today.toLocaleTimeString('en-US'));
 
 		        console.log(Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US')).getTime()-new Date(new Date(data.login[inlength]).toLocaleDateString('en-US')).getTime()))/(1000 * 3600 * 24)))
 		        while ( ((diff=Math.ceil(Math.abs((new Date(today.toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()-new Date(new Date(data.login[inlength]).toLocaleDateString('en-US', { timeZone: 'Asia/Calcutta' })).getTime()))/(1000 * 3600 * 24))) < 14) && (inlength > -1) && (today - new Date(data.login[inlength])) >= 0){
