@@ -52,6 +52,9 @@ const User= require("./models/user-model");
 //const Lecture= require("./models/user-model");
 //Set static files location
 app.use(express.static("./assets"));
+app.get("/home",function(req, res){
+	res.render("home");
+});
 //Set static files location
 app.use("/user",express.static("./assets"));
 //Set view Engine to EJS
